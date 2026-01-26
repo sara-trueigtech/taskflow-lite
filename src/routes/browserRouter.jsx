@@ -12,11 +12,15 @@ const router = createBrowserRouter([
         <ProtectedRoutes />
       </AuthProvider>
     ),
-    children: [{ index: true, element: <Dashboard /> }],
+    children: [{ path: "dashboard", element: <Dashboard /> }],
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <AuthProvider>
+        <Login />
+      </AuthProvider>
+    ),
   },
 ]);
 
