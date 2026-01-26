@@ -2,39 +2,94 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 const TaskForm = () => {
-    const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
+
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="title"
-          {...register("title", { required: "title is required" })}
-        />
+    <form
+      onSubmit={handleSubmit()}
+      style={{
+        maxWidth: "400px",
+        margin: "20px auto",
+        padding: "20px",
+        border: "1px solid #ccc",
+        borderRadius: "6px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+        backgroundColor: "#fafafa",
+      }}
+    >
+      <input
+        placeholder="Title"
+        {...register("title", { required: "title is required" })}
+        style={{
+          padding: "8px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+        }}
+      />
 
-        <select {...register("status")}>
-          <option value="todo">todo</option>
-          <option value="in-progress">in Progress</option>
-          <option value="done">done</option>
-        </select>
+      <select
+        {...register("status")}
+        style={{
+          padding: "8px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+        }}
+      >
+        <option value="todo">To Do</option>
+        <option value="in-progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
 
-        <select {...register("priority")}>
-          <option value="low">low</option>
-          <option value="medium">medium</option>
-          <option value="high">high</option>
-        </select>
+      <select
+        {...register("priority")}
+        style={{
+          padding: "8px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+        }}
+      >
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
 
-        <input type="date" {...register("dueDate", { required: true })} />
+      <input
+        type="date"
+        {...register("dueDate", { required: true })}
+        style={{
+          padding: "8px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+        }}
+      />
 
-        <input
-          placeholder="assignee"
-          {...register("assignee", { required: true })}
-        />
+      <input
+        placeholder="Assignee"
+        {...register("assignee", { required: true })}
+        style={{
+          padding: "8px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+        }}
+      />
 
-        <button type="submit">
-          {selectedTask ? "update task" : "add task"}
-        </button>
-      </form>
-    </>
+      <button
+        type="submit"
+        style={{
+          padding: "10px",
+          backgroundColor: "#1976d2",
+          color: "#fff",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+          fontWeight: "bold",
+        }}
+      >
+        Add Task
+      </button>
+    </form>
   );
 };
 
