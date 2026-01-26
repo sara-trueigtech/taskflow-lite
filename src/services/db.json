@@ -1,0 +1,12 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "task 1",
+      "status": "todo",
+      "priority": "high",
+      "dueDate": "02-02-2026",
+      "assignee": "Sara"
+    }
+  ]
+}
