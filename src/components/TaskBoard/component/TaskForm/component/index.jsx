@@ -21,7 +21,16 @@ const TaskForm = ({ onSubmit = () => {}, curTask = [] }) => {
   useEffect(() => {
     if (curTask) {
       reset(curTask);
-    } 
+    }
+    else {
+    reset({
+      title: "",
+      status: "todo",
+      priority: "low",
+      dueDate: "",
+      assignee: "",
+    });
+  }
   }, [curTask, reset]);
 
   const today = new Date().toISOString().split("T")[0];
@@ -146,7 +155,7 @@ const TaskForm = ({ onSubmit = () => {}, curTask = [] }) => {
           fontWeight: "bold",
         }}
       >
-        {isSubmitting ? "Adding Task..." : "Add Task"}
+        {isSubmitting ? "Adding Task..." : curTask?.id ? "Update Task" : "Add Task"}
       </button>
     </form>
   );
