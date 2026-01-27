@@ -1,4 +1,4 @@
-import { updateTask } from "../../../services/api"
+import { updateTask } from "../../services/api"
 
 const useUpdateTask = (setTask) => {
     const editTask = async(task) => {
