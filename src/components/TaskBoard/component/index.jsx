@@ -20,25 +20,77 @@ const TaskBoard = () => {
       addTask(data);
     }
   }
+
+  const todoTasks = tasks.filter(t => t.status === "todo");
+  const inProgressTasks = tasks.filter(t => t.status === "in-progress");
+  const doneTasks = tasks.filter(t => t.status === "done");
   
+  const renderTasks = (taskList) =>
+    taskList.map((t) => (
+      <div
+        key={t.id}
+        style={{
+          backgroundColor: "#fff",
+          padding: "12px",
+          marginBottom: "10px",
+          borderRadius: "6px",
+          border: "1px solid"
+        }}
+      >
+        <h4 style={{ margin: "0 0 5px 0" }}>{t.title}</h4>
+        <p style={{ fontSize: "13px", margin: "2px 0" }}>
+          Priority: {t.priority}
+        </p>
+        <p style={{ fontSize: "13px", margin: "2px 0" }}>
+          Due: {t.dueDate}
+        </p>
+        <p style={{ fontSize: "13px", margin: "2px 0" }}>
+          Assignee: {t.assignee}
+        </p>
+
+        <button
+          onClick={() => setCurTask(t)}
+          style={{
+            marginTop: "8px",
+            padding: "4px 8px",
+            fontSize: "12px",
+            cursor: "pointer",
+            background: "green",
+            color: "white"
+          }}
+        >
+          Update
+        </button>
+      </div>
+    ));
+
 
   return (
     <>
     <TaskForm onSubmit={handleSubmit} curTask={curTask}/>
 
-    <ul>
-      {tasks.map((t) => (
-        <li key={t.id}>
-          <h3>{t.title}</h3>
-          <p>status: {t.status}</p>
-          <p>priority: {t.priority}</p>
-          <p>due date: {t.dueDate}</p>
-          <p>assignee: {t.assignee}</p>
+     <div
+        style={{
+          display: "flex",
+          gap: "15px",
+          marginTop: "20px"
+        }}
+      >
+        <div style={{ flex: 1 }}>
+          <h3>Todo</h3>
+          {renderTasks(todoTasks)}
+        </div>
 
-          <button onClick={() => setCurTask(t)}>update</button>
-        </li>
-      ))}
-    </ul>
+        <div style={{ flex: 1 }}>
+          <h3>In Progress</h3>
+          {renderTasks(inProgressTasks)}
+        </div>
+
+        <div style={{ flex: 1 }}>
+          <h3>Done</h3>
+          {renderTasks(doneTasks)}
+        </div>
+      </div>
     </>
   )
 }

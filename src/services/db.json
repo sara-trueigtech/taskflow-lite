@@ -3,9 +3,9 @@
     {
       "id": "1",
       "title": "task 1",
-      "status": "todo",
+      "status": "in-progress",
       "priority": "high",
-      "dueDate": "02-02-2026",
+      "dueDate": "2026-01-29",
       "assignee": "Sara"
     },
     {
