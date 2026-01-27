@@ -10,7 +10,7 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
     }
     else{
       reset({
-        titlle: "",
+        title: "",
         status: "todo",
         priority: "low",
         dueDate: "",
@@ -18,6 +18,8 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
       })
     }
   }, [curTask, reset]);
+
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <form
@@ -72,7 +74,9 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
 
       <input
         type="date"
-        {...register("dueDate", { required: true })}
+        min = {today}
+        {...register("dueDate", { required: true, 
+          validate: (val) => val >= today })}
         style={{
           padding: "8px",
           border: "1px solid #ccc",
