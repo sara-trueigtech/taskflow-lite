@@ -1,11 +1,11 @@
-import { updateTask } from "../../services/api"
+import { updateTask } from "../../../services/api"
 
 const useUpdateTask = (setTask) => {
     const editTask = async(task) => {
-        const updated = await await updateTask(task.id, task);
+        const updated = await updateTask(task.id, task);
 
         setTask((p) => {
-            p.map((t) => (t.id === task.id ? updated : t));
+            return p.map((t) => (t.id === task.id ? updated : t));
         });
     }
 
