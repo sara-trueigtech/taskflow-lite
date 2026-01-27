@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 const TaskForm = ({ onSubmit = () => {}, curTask = [] }) => {
   const {
+    control,
     register,
     handleSubmit,
     reset,
@@ -57,47 +58,68 @@ const TaskForm = ({ onSubmit = () => {}, curTask = [] }) => {
         }}
       />
 
-      <select
-      disabled={isSubmitting}
-        {...register("status")}
-        style={{
-          padding: "8px",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-        }}
-      >
-        <option value="todo">To Do</option>
-        <option value="in-progress">In Progress</option>
-        <option value="done">Done</option>
-      </select>
+      <Controller
+        name="status"
+        control={control}
+        render={({ field }) => (
+          <select
+            {...field}
+            disabled={isSubmitting}
+            style={{
+              padding: "8px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+            }}
+          >
+            <option value="todo">To Do</option>
+            <option value="in-progress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
+        )}
+      />
 
-      <select
-      disabled={isSubmitting}
-        {...register("priority")}
-        style={{
-          padding: "8px",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-        }}
-      >
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-      </select>
+      <Controller
+        name="priority"
+        control={control}
+        render={({ field }) => (
+          <select
+            {...field}
+            disabled={isSubmitting}
+            style={{
+              padding: "8px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+            }}
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        )}
+      />
 
-      <input
-      disabled={isSubmitting}
-        type="date"
-        min={today}
-        {...register("dueDate", {
-          required: true,
-          validate: (val) => val >= today,
-        })}
-        style={{
-          padding: "8px",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
+
+      <Controller
+        name="dueDate"
+        control={control}
+        rules={{
+          required: "Due date is required",
+          validate: (val) =>
+            val >= today || "Past dates are not allowed",
         }}
+        render={({ field }) => (
+          <input
+            type="date"
+            min={today}
+            {...field}
+            disabled={isSubmitting}
+            style={{
+              padding: "8px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+            }}
+          />
+        )}
       />
 
       <input
