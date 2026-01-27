@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const TaskForm = () => {
-  const { register, handleSubmit } = useForm();
+const TaskForm = ({onSubmit, curTask}) => {
+  const { register, handleSubmit, reset } = useForm();
+
+  useEffect(() => {
+    if(curTask){
+      reset(curTask);
+    }
+    else{
+      reset({
+        titlle: "",
+        status: "todo",
+        priority: "low",
+        dueDate: "",
+        assignee: ""
+      })
+    }
+  }, [curTask, reset]);
 
   return (
     <form
-      onSubmit={handleSubmit()}
+      onSubmit={handleSubmit(onSubmit)}
       style={{
         maxWidth: "400px",
         margin: "20px auto",
