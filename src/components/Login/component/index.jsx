@@ -4,7 +4,7 @@ import useLogin from '../Hooks/useLogin';
 
 const Login = () => {
   const { register, handleSubmit, formState } = useForm();
-  const { handleLogin } = useLogin();
+  const { handleLogin, loading } = useLogin();
 
   return (
     <div
@@ -66,13 +66,14 @@ const Login = () => {
             width: "100%",
             padding: "10px",
             marginTop: "15px",
-            backgroundColor: "#4f46e5",
+            backgroundColor: loading ? "#a5b4fc" : "#4f46e5",
             color: "#fff",
             border: "none",
             cursor: "pointer"
           }}
+          disabled = {loading}
         >
-          Login
+          {loading ? "logging in..." : "login"}
         </button>
       </form>
     </div>
