@@ -1,29 +1,39 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
-  const { register, handleSubmit, reset } = useForm();
+const TaskForm = ({ onSubmit = () => {}, curTask = [] }) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      title: "",
+      status: "todo",
+      priority: "low",
+      dueDate: "",
+      assignee: "",
+    },
+  });
 
   useEffect(() => {
-    if(curTask){
+    if (curTask) {
       reset(curTask);
-    }
-    else{
-      reset({
-        title: "",
-        status: "todo",
-        priority: "low",
-        dueDate: "",
-        assignee: ""
-      })
-    }
+    } 
   }, [curTask, reset]);
 
   const today = new Date().toISOString().split("T")[0];
 
+  const handleFormSubmit = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    onSubmit(data);
+    reset();
+  }
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleFormSubmit)}
       style={{
         maxWidth: "400px",
         margin: "20px auto",
@@ -38,6 +48,7 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
     >
       <input
         placeholder="Title"
+        disabled={isSubmitting}
         {...register("title", { required: "title is required" })}
         style={{
           padding: "8px",
@@ -47,6 +58,7 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
       />
 
       <select
+      disabled={isSubmitting}
         {...register("status")}
         style={{
           padding: "8px",
@@ -60,6 +72,7 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
       </select>
 
       <select
+      disabled={isSubmitting}
         {...register("priority")}
         style={{
           padding: "8px",
@@ -73,10 +86,13 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
       </select>
 
       <input
+      disabled={isSubmitting}
         type="date"
-        min = {today}
-        {...register("dueDate", { required: true, 
-          validate: (val) => val >= today })}
+        min={today}
+        {...register("dueDate", {
+          required: true,
+          validate: (val) => val >= today,
+        })}
         style={{
           padding: "8px",
           border: "1px solid #ccc",
@@ -85,6 +101,7 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
       />
 
       <input
+      disabled={isSubmitting}
         placeholder="Assignee"
         {...register("assignee", { required: true })}
         style={{
@@ -96,9 +113,10 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
 
       <button
         type="submit"
+        disabled={isSubmitting}
         style={{
           padding: "10px",
-          backgroundColor: "#1976d2",
+          backgroundColor: isSubmitting ? "#90caf9" : "#1976d2",
           color: "#fff",
           border: "none",
           borderRadius: "4px",
@@ -106,7 +124,7 @@ const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
           fontWeight: "bold",
         }}
       >
-        Add Task
+        {isSubmitting ? "Adding Task..." : "Add Task"}
       </button>
     </form>
   );
