@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-const TaskForm = ({onSubmit, curTask}) => {
+const TaskForm = ({onSubmit = () => {}, curTask = []}) => {
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {

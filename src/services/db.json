@@ -3,7 +3,7 @@
     {
       "id": "1",
       "title": "task 1",
-      "status": "in-progress",
+      "status": "done",
       "priority": "high",
       "dueDate": "2026-01-29",
       "assignee": "Sara"
@@ -11,11 +11,47 @@
     {
       "id": "ad86",
       "titlle": "",
-      "status": "todo",
+      "status": "in-progress",
       "priority": "high",
       "dueDate": "2026-01-28",
       "assignee": "test subject update",
       "title": "test"
+    },
+    {
+      "id": "7ca8",
+      "titlle": "",
+      "status": "done",
+      "priority": "medium",
+      "dueDate": "2026-01-28",
+      "assignee": "test",
+      "title": "example task"
+    },
+    {
+      "id": "a2e8",
+      "titlle": "",
+      "status": "done",
+      "priority": "low",
+      "dueDate": "2026-01-30",
+      "assignee": "test assignee",
+      "title": "task 2"
+    },
+    {
+      "id": "bfa9",
+      "titlle": "",
+      "status": "todo",
+      "priority": "medium",
+      "dueDate": "2026-01-29",
+      "assignee": "test subject",
+      "title": "task"
+    },
+    {
+      "id": "1b98",
+      "titlle": "",
+      "status": "todo",
+      "priority": "medium",
+      "dueDate": "2026-01-28",
+      "assignee": "test subject",
+      "title": "example task"
     }
   ]
 }
