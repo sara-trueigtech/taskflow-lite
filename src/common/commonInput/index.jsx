@@ -1,5 +1,5 @@
-const Input = ({ field, style, ...rest }) => {
-  return <input {...field} style={style} {...rest} />;
+const Input = ({ field={}, style={}, inputType="", ...rest }) => {
+  return <input {...field} style={style} {...rest} type={inputType} />;
 };
 
 export default Input;
