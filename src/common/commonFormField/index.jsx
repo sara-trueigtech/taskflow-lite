@@ -3,14 +3,13 @@ import Input from "../commonInput";
 import Select from "../commonSelect";
 
 const FormField = ({ field, config, error }) => {
-  const { type, options, style, inputType } = config;
+  const { type, options, style, inputType, disablePast, disableTyping, } = config;
 
   const renderField = () => {
     switch (type) {
       case "input":
         return (
-          <Input field={field} style={style} inputType={inputType}
-          />
+          <Input field={field} style={style} inputType={inputType} disablePast={disablePast} disableTyping={disableTyping}/>
         );
 
       case "select":
@@ -25,7 +24,7 @@ const FormField = ({ field, config, error }) => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div>
       {renderField()}
 
       {error && (

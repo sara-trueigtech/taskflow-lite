@@ -2,7 +2,8 @@ export const TASK_FORM_CONTROLLER = [
   {
     name: "title",
     type: "input",
-    isRequired: true,
+    inputType: "text",
+    isRequired: "Title is required",
     style: {
       width: "95%",
       padding: "8px",
@@ -11,7 +12,7 @@ export const TASK_FORM_CONTROLLER = [
   {
     name: "status",
     type: "select",
-    isRequired: true,
+    isRequired: "Status is required",
     options: [
       { label: "todo", value: "todo" },
       { label: "in-progress", value: "in-progress" },
@@ -20,13 +21,12 @@ export const TASK_FORM_CONTROLLER = [
     style: {
       width: "100%",
       padding: "8px",
-      backgroundColor: "#f9f9f9",
     },
   },
   {
     name: "priority",
     type: "select",
-    isRequired: true,
+    isRequired: "Priority is required",
     options: [
       { label: "low", value: "low" },
       { label: "medium", value: "medium" },
@@ -39,8 +39,11 @@ export const TASK_FORM_CONTROLLER = [
   },
   {
     name: "dueDate",
-    type: "date",
-    isRequired: true,
+    type: "input",
+    inputType: "date",
+    isRequired: "Due date is required",
+    disablePast: true,
+    disableTyping: true, 
     style: {
       width: "95%",
       padding: "8px",
@@ -49,11 +52,11 @@ export const TASK_FORM_CONTROLLER = [
   {
     name: "assignee",
     type: "input",
-    isRequired: true,
+    inputType: "text",
+    isRequired: "Assignee is required",
     style: {
       width: "95%",
       padding: "8px",
-
     },
   },
 ];
