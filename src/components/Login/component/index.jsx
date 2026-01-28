@@ -1,10 +1,11 @@
 import React from 'react'
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import useLogin from '../Hooks/useLogin';
+import FormField from '../../../common/commonFormField';
 
 const Login = () => {
-  const { register, handleSubmit, formState } = useForm();
-  const { handleLogin, loading } = useLogin();
+  const { register, handleSubmit, control, formState } = useForm();
+  const { handleLogin, loading, LOGIN_FORM_CONTROLLER } = useLogin();
 
   return (
     <div
@@ -27,7 +28,19 @@ const Login = () => {
           Login
         </h3>
 
-        <input
+        {LOGIN_FORM_CONTROLLER.map((tag) => (
+          <Controller 
+          key={tag.name}
+          name={tag.name}
+          control={control}
+          rules={{required: tag.isRequired}}
+          render={({field, fieldState}) => {
+            return <FormField field={field} config={tag} error={fieldState.error}/>
+          }}
+          />
+        ))}
+
+        {/* <input
           type="email"
           placeholder="Email"
           {...register("email", { required: "email is required" })}
@@ -58,7 +71,7 @@ const Login = () => {
           <p style={{ color: "red", fontSize: "12px" }}>
             {formState.errors.password.message}
           </p>
-        )}
+        )} */}
 
         <button
           type="submit"
