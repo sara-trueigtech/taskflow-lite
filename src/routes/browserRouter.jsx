@@ -3,6 +3,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import Dashboard from "../components/Dashboard/component";
 import Login from "../components/Login/component";
 import AuthProvider from "../context/AuthProvider";
+import ErrorPage from "../common/commonErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,8 @@ const router = createBrowserRouter([
         <ProtectedRoutes />
       </AuthProvider>
     ),
-    children: [{ path: "dashboard", element: <Dashboard /> }],
+    errorElement: <ErrorPage />, 
+    children: [{ index:true, element: <Dashboard /> }],
   },
   {
     path: "/login",
@@ -21,6 +23,7 @@ const router = createBrowserRouter([
         <Login />
       </AuthProvider>
     ),
+    errorElement: <ErrorPage />, 
   },
 ]);
 
