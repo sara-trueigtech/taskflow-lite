@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
+import FormField from "../../../../../common/commonFormField";
 
-const TaskForm = ({ onSubmit = () => {}, curTask = [] }) => {
+const TaskForm = ({ onSubmit = () => {}, curTask = [], controls = [] }) => 
+  {
+  
   const {
     control,
     register,
@@ -21,16 +24,15 @@ const TaskForm = ({ onSubmit = () => {}, curTask = [] }) => {
   useEffect(() => {
     if (curTask) {
       reset(curTask);
+    } else {
+      reset({
+        title: "",
+        status: "todo",
+        priority: "low",
+        dueDate: "",
+        assignee: "",
+      });
     }
-    else {
-    reset({
-      title: "",
-      status: "todo",
-      priority: "low",
-      dueDate: "",
-      assignee: "",
-    });
-  }
   }, [curTask, reset]);
 
   const today = new Date().toISOString().split("T")[0];
@@ -39,125 +41,60 @@ const TaskForm = ({ onSubmit = () => {}, curTask = [] }) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     onSubmit(data);
     reset();
-  }
+  };
 
+  
   return (
-    <form
-      onSubmit={handleSubmit(handleFormSubmit)}
-      style={{
-        maxWidth: "400px",
-        margin: "20px auto",
-        padding: "20px",
-        border: "1px solid #ccc",
-        borderRadius: "6px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        backgroundColor: "#fafafa",
-      }}
-    >
-      <input
-        placeholder="Title"
-        disabled={isSubmitting}
-        {...register("title", { required: "title is required" })}
+    <>
+      <form
+        onSubmit={handleSubmit(handleFormSubmit)}
         style={{
-          padding: "8px",
+          maxWidth: "400px",
+          margin: "20px auto",
+          padding: "20px",
           border: "1px solid #ccc",
-          borderRadius: "4px",
-        }}
-      />
-
-      <Controller
-        name="status"
-        control={control}
-        render={({ field }) => (
-          <select
-            {...field}
-            disabled={isSubmitting}
-            style={{
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          >
-            <option value="todo">To Do</option>
-            <option value="in-progress">In Progress</option>
-            <option value="done">Done</option>
-          </select>
-        )}
-      />
-
-      <Controller
-        name="priority"
-        control={control}
-        render={({ field }) => (
-          <select
-            {...field}
-            disabled={isSubmitting}
-            style={{
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        )}
-      />
-
-
-      <Controller
-        name="dueDate"
-        control={control}
-        rules={{
-          required: "Due date is required",
-          validate: (val) =>
-            val >= today || "Past dates are not allowed",
-        }}
-        render={({ field }) => (
-          <input
-            type="date"
-            min={today}
-            {...field}
-            disabled={isSubmitting}
-            style={{
-              padding: "8px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-        )}
-      />
-
-      <input
-      disabled={isSubmitting}
-        placeholder="Assignee"
-        {...register("assignee", { required: true })}
-        style={{
-          padding: "8px",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-        }}
-      />
-
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        style={{
-          padding: "10px",
-          backgroundColor: isSubmitting ? "#90caf9" : "#1976d2",
-          color: "#fff",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-          fontWeight: "bold",
+          borderRadius: "6px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          backgroundColor: "#fafafa",
         }}
       >
-        {isSubmitting ? "Adding Task..." : curTask?.id ? "Update Task" : "Add Task"}
-      </button>
-    </form>
+
+        {controls.map((tag) => (
+          <div key={tag.name}>
+            <Controller
+              name={tag.name}
+              control={control}
+              rules={{required: tag.isRequired}}
+              render={({field}) => {
+                return <FormField field={field} config={tag} />
+              }}
+            />
+          </div>
+        ))}
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          style={{
+            padding: "10px",
+            backgroundColor: isSubmitting ? "#90caf9" : "#1976d2",
+            color: "#fff",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          {isSubmitting
+            ? "Adding Task..."
+            : curTask?.id
+              ? "Update Task"
+              : "Add Task"}
+        </button>
+      </form>
+    </>
   );
 };
 

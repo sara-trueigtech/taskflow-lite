@@ -7,7 +7,7 @@ import useCreateTask from "../hooks/useCreateTask";
 const TaskBoard = () => {
   const { tasks, setTasks } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
-  const { addTask } = useCreateTask(setTasks);
+  const { addTask,TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
 
   const [curTask, setCurTask] = useState(null);
 
@@ -83,7 +83,7 @@ const TaskBoard = () => {
 
   return (
     <>
-      <TaskForm onSubmit={handleSubmit} curTask={curTask} />
+      <TaskForm onSubmit={handleSubmit} curTask={curTask} controls={TASK_FORM_CONTROLLER}/>
 
       <div
         style={{
