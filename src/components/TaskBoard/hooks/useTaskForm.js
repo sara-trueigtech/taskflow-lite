@@ -19,7 +19,6 @@ const useTaskForm = ({ curTask, onSubmit, onCancel, open }) => {
     },
   });
 
-  // handle edit vs add
   useEffect(() => {
     if (curTask) {
       reset(curTask);
@@ -34,7 +33,6 @@ const useTaskForm = ({ curTask, onSubmit, onCancel, open }) => {
     }
   }, [curTask, reset]);
 
-  // dialog open / close
   useEffect(() => {
     if (!dialogRef.current) return;
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getTasks } from "../../../services/api";
+import { getTasks } from "../../../services/get";
 
 
 const useTasks = () => {

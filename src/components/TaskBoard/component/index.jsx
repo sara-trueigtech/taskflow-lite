@@ -7,11 +7,13 @@ import useTaskActions from "../hooks/useTaskAction";
 import useTaskDragDrop from "../hooks/useDragDrop";
 import TaskSearchFilter from "./TaskSearchFilter";
 import TaskForm from "./TaskForm/component";
+import useDeleteTask from "../hooks/useDelete";
 
 const TaskBoard = () => {
   const { tasks, setTasks } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
   const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
+  const { removeTask } = useDeleteTask(setTasks);
 
   const { filteredTasks, setFilters } = useTaskFilters(tasks);
 
@@ -58,7 +60,19 @@ const TaskBoard = () => {
         <p style={{ fontSize: "13px", margin: "2px 0" }}>
           Priority: <b>{t.priority}</b>
         </p>
+        <p style={{ fontSize: "13px", margin: "2px 0" }}>
+          Due Date: <b>{t.dueDate}</b>
+        </p>
+        <p style={{ fontSize: "13px", margin: "2px 0" }}>
+          Assignee: <b>{t.assignee}</b>
+        </p>
 
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "80px",
+          gap:"10px"
+        }}>
         <button
           onClick={() => openEdit(t)}
           style={{
@@ -74,6 +88,20 @@ const TaskBoard = () => {
         >
           Update
         </button>
+        <button
+        onClick={() => removeTask(t.id)}
+         style={{
+          background: "#f32f2f",
+            color: "#fff",
+            border: "none",
+            padding: "6px 10px",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontSize: "12px",
+        }}>
+          Delete
+        </button>
+        </div>
       </div>
     ));
 
