@@ -4,6 +4,7 @@ export const LOGIN_FORM_CONTROLLER = [
     type: "input",
     inputType: "email",
     isRequired: "email is required",
+    placeholder: "email",
     style: { 
         width: "100%", 
         padding: "8px", 
@@ -14,6 +15,7 @@ export const LOGIN_FORM_CONTROLLER = [
      name: "password",
     type: "input",
     inputType: "password",
+    placeholder: "password",
     isRequired: "password is required",
     style: { 
         width: "100%", 

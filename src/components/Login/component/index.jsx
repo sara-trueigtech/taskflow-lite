@@ -40,39 +40,6 @@ const Login = () => {
           />
         ))}
 
-        {/* <input
-          type="email"
-          placeholder="Email"
-          {...register("email", { required: "email is required" })}
-          style={{
-            width: "100%",
-            padding: "8px",
-            marginBottom: "5px"
-          }}
-        />
-        {formState.errors.email && (
-          <p style={{ color: "red", fontSize: "12px" }}>
-            {formState.errors.email.message}
-          </p>
-        )}
-
-        <input
-          type="password"
-          placeholder="Password"
-          {...register("password", { required: "password is required" })}
-          style={{
-            width: "100%",
-            padding: "8px",
-            marginTop: "10px",
-            marginBottom: "5px"
-          }}
-        />
-        {formState.errors.password && (
-          <p style={{ color: "red", fontSize: "12px" }}>
-            {formState.errors.password.message}
-          </p>
-        )} */}
-
         <button
           type="submit"
           style={{

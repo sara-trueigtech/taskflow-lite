@@ -13,7 +13,7 @@ function useLogin() {
         login(data);
         try{
             await new Promise((resolve) => setTimeout(resolve, 2000));
-            navigate("/dashboard");
+            navigate("/");
         }
         catch(err){
             console.log(err);
