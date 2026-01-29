@@ -2,7 +2,9 @@ export const TASK_FORM_CONTROLLER = [
   {
     name: "title",
     type: "input",
-    isRequired: true,
+    inputType: "text",
+    placeholder: "title",
+    isRequired: "Title is required",
     style: {
       width: "95%",
       padding: "8px",
@@ -39,8 +41,12 @@ export const TASK_FORM_CONTROLLER = [
   },
   {
     name: "dueDate",
-    type: "date",
-    isRequired: true,
+    type: "input",
+    inputType: "date",
+    placeholder: "due date",
+    isRequired: "Due date is required",
+    disablePast: true,
+    disableTyping: true, 
     style: {
       width: "95%",
       padding: "8px",
@@ -49,7 +55,9 @@ export const TASK_FORM_CONTROLLER = [
   {
     name: "assignee",
     type: "input",
-    isRequired: true,
+    inputType: "text",
+    placeholder: "assignee",
+    isRequired: "Assignee is required",
     style: {
       width: "95%",
       padding: "8px",

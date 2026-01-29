@@ -12,17 +12,9 @@
       "id": "1058",
       "title": "test task",
       "status": "in-progress",
-      "priority": "low",
-      "dueDate": "2026-01-30",
-      "assignee": "test subject"
-    },
-    {
-      "id": "22a2",
-      "title": "test taks 2",
-      "status": "todo",
-      "priority": "medium",
-      "dueDate": "2026-01-31",
-      "assignee": "test subject"
+      "priority": "high",
+      "dueDate": "2026-01-28",
+      "assignee": "test subject update"
     }
   ]
 }
