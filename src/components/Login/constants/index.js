@@ -6,9 +6,11 @@ export const LOGIN_FORM_CONTROLLER = [
     isRequired: "email is required",
     placeholder: "email",
     style: { 
-        width: "100%", 
+        width: "94%", 
         padding: "8px", 
-        marginBottom: "5px" 
+        marginBottom: "5px", 
+        border: "1px solid #3f3f40",
+        borderRadius: "8px"
     },
   },
   {
@@ -18,9 +20,11 @@ export const LOGIN_FORM_CONTROLLER = [
     placeholder: "password",
     isRequired: "password is required",
     style: { 
-        width: "100%", 
+        width: "94%", 
         padding: "8px", 
-        marginBottom: "5px" 
+        marginBottom: "5px",
+        border: "1px solid #3f3f40",
+        borderRadius: "8px"
     },
   }
 ];

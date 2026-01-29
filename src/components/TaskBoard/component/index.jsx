@@ -7,27 +7,28 @@ import useCreateTask from "../hooks/useCreateTask";
 const TaskBoard = () => {
   const { tasks, setTasks } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
-  const { addTask,TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
+  const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
 
   const [curTask, setCurTask] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
   const handleSubmit = (data) => {
     if (!data) return;
+
     if (curTask) {
       editTask({ ...curTask, ...data });
     } else {
       addTask(data);
     }
-    setCurTask(null);
-    setShowForm(false);
-  };
-  
-  const handleCancel = () => {
+
     setCurTask(null);
     setShowForm(false);
   };
 
+  const handleCancel = () => {
+    setCurTask(null);
+    setShowForm(false);
+  };
 
   const handleDrop = (e, newStatus) => {
     e.preventDefault();
@@ -54,24 +55,29 @@ const TaskBoard = () => {
       <div
         key={t.id}
         draggable
-        onDragStart={(e) => {
-          e.dataTransfer.setData("taskId", t.id);
-        }}
+        onDragStart={(e) => e.dataTransfer.setData("taskId", t.id)}
         style={{
           backgroundColor: "#fff",
           padding: "12px",
           marginBottom: "10px",
-          borderRadius: "6px",
-          border: "1px solid",
+          borderRadius: "8px",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
         }}
       >
-        <h4 style={{ margin: "0 0 5px 0" }}>{t.title}</h4>
-        <p style={{ fontSize: "13px", margin: "2px 0" }}>
-          Priority: {t.priority}
+        <h4 style={{ margin: "0 0 6px 0", color: "#111827" }}>
+          {t.title}
+        </h4>
+
+        <p style={{ fontSize: "13px", margin: "2px 0", color: "#374151" }}>
+          Priority: <b>{t.priority}</b>
         </p>
-        <p style={{ fontSize: "13px", margin: "2px 0" }}>Due: {t.dueDate}</p>
-        <p style={{ fontSize: "13px", margin: "2px 0" }}>
-          Assignee: {t.assignee}
+
+        <p style={{ fontSize: "13px", margin: "2px 0", color: "#374151" }}>
+          Due: {t.dueDate || "-"}
+        </p>
+
+        <p style={{ fontSize: "13px", margin: "2px 0", color: "#374151" }}>
+          Assignee: {t.assignee || "-"}
         </p>
 
         <button
@@ -80,12 +86,14 @@ const TaskBoard = () => {
             setShowForm(true);
           }}
           style={{
-            marginTop: "6px",
-            background: "green",
+            marginTop: "8px",
+            background: "#16a34a",
             color: "#fff",
             border: "none",
-            padding: "4px 8px",
+            padding: "6px 10px",
+            borderRadius: "4px",
             cursor: "pointer",
+            fontSize: "12px",
           }}
         >
           Update
@@ -94,20 +102,21 @@ const TaskBoard = () => {
     ));
 
   return (
-    <>
+    <div style={{ padding: "20px", background: "#f9fafb", minHeight: "100vh" }}>
       <button
         onClick={() => {
           setCurTask(null);
           setShowForm(true);
         }}
         style={{
-          padding: "8px 12px",
-          marginBottom: "10px",
-          background: "#1976d2",
+          padding: "10px 14px",
+          marginBottom: "16px",
+          background: "#4f46e5",
           color: "#fff",
           border: "none",
-          borderRadius: "4px",
+          borderRadius: "6px",
           cursor: "pointer",
+          fontWeight: "500",
         }}
       >
         + Add Task
@@ -125,38 +134,41 @@ const TaskBoard = () => {
       <div
         style={{
           display: "flex",
-          gap: "15px",
+          gap: "16px",
           marginTop: "20px",
         }}
       >
-        <div
-          style={{ flex: 1 }}
-          onDragOver={allowDrop}
-          onDrop={(e) => handleDrop(e, "todo")}
-        >
-          <h3>Todo</h3>
-          {renderTasks(todoTasks)}
-        </div>
-
-        <div
-          style={{ flex: 1 }}
-          onDragOver={allowDrop}
-          onDrop={(e) => handleDrop(e, "in-progress")}
-        >
-          <h3>In Progress</h3>
-          {renderTasks(inProgressTasks)}
-        </div>
-
-        <div
-          style={{ flex: 1 }}
-          onDragOver={allowDrop}
-          onDrop={(e) => handleDrop(e, "done")}
-        >
-          <h3>Done</h3>
-          {renderTasks(doneTasks)}
-        </div>
+        {[
+          { title: "Todo", status: "todo", list: todoTasks },
+          { title: "In Progress", status: "in-progress", list: inProgressTasks },
+          { title: "Done", status: "done", list: doneTasks },
+        ].map((col) => (
+          <div
+            key={col.status}
+            onDragOver={allowDrop}
+            onDrop={(e) => handleDrop(e, col.status)}
+            style={{
+              flex: 1,
+              background: "#eef2ff",
+              padding: "12px",
+              borderRadius: "10px",
+              minHeight: "400px",
+            }}
+          >
+            <h3
+              style={{
+                textAlign: "center",
+                marginBottom: "12px",
+                color: "#1f2933",
+              }}
+            >
+              {col.title}
+            </h3>
+            {renderTasks(col.list)}
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -5,6 +5,14 @@ export const SIGNUP_FORM_CONTROLLER = [
     inputType: "text",
     placeholder: "Full Name",
     isRequired: "Name is required",
+    style: {
+      
+      padding: "10px",
+      borderRadius: "8px",
+      border: "1px solid #3f3f40",
+      fontSize: "14px",
+      width: "94%",
+    },
   },
   {
     name: "email",
@@ -12,6 +20,14 @@ export const SIGNUP_FORM_CONTROLLER = [
     inputType: "email",
     placeholder: "Email",
     isRequired: "Email is required",
+    style: {
+      marginTop: "10px",
+      padding: "10px",
+      borderRadius: "8px",
+      border: "1px solid #3f3f40",
+      fontSize: "14px",
+      width: "94%",
+    },
   },
   {
     name: "password",
@@ -19,5 +35,13 @@ export const SIGNUP_FORM_CONTROLLER = [
     inputType: "password",
     placeholder: "Password",
     isRequired: "Password is required",
+    style: {
+      marginTop: "10px",
+      padding: "10px",
+      borderRadius: "6px",
+      border: "1px solid #3f3f40",
+      fontSize: "14px",
+      width: "94%",
+    },
   },
 ];

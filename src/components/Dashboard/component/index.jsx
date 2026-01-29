@@ -1,6 +1,6 @@
-import React from 'react'
-import useLogout from '../hooks/useLogout';
-import TaskBoard from '../../TaskBoard/component';
+import React from "react";
+import useLogout from "../hooks/useLogout";
+import TaskBoard from "../../TaskBoard/component";
 
 const Dashboard = () => {
   const { handleLogout } = useLogout();
@@ -8,16 +8,25 @@ const Dashboard = () => {
   return (
     <div
       style={{
+        minHeight: "100vh",
+        backgroundColor: "#f3f4f6",
         padding: "20px",
       }}
     >
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-end",
-          marginBottom: "20px"
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+          backgroundColor: "#fff",
+          padding: "12px 16px",
+          borderRadius: "8px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
         }}
       >
+        <h2 style={{ margin: 0, color: "#111827" }}>Task Dashboard</h2>
+
         <button
           onClick={handleLogout}
           style={{
@@ -25,7 +34,9 @@ const Dashboard = () => {
             backgroundColor: "#dc2626",
             color: "#fff",
             border: "none",
-            cursor: "pointer"
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontWeight: "500",
           }}
         >
           Logout
@@ -36,7 +47,8 @@ const Dashboard = () => {
         style={{
           backgroundColor: "#fff",
           padding: "20px",
-          borderRadius: "6px",
+          borderRadius: "10px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
         }}
       >
         <TaskBoard />
