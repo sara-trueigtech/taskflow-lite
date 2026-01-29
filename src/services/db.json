@@ -3,26 +3,30 @@
     {
       "id": "1",
       "title": "task 1",
-      "status": "done",
+      "status": "todo",
       "priority": "high",
       "dueDate": "2026-01-29",
       "assignee": "Sara"
     },
     {
-      "id": "1058",
-      "title": "test task",
-      "status": "in-progress",
-      "priority": "high",
-      "dueDate": "2026-01-28",
-      "assignee": "test subject update"
+      "id": "1058"
     },
     {
-      "id": "3e0c",
-      "title": "task2",
-      "status": "todo",
-      "priority": "medium",
-      "dueDate": "2026-02-05",
-      "assignee": "test assignee"
+      "id": "3e0c"
+    },
+    {
+      "id": "f99c"
+    },
+    {
+      "id": "2c7c"
+    },
+    {
+      "id": "2c8e",
+      "title": "task 2",
+      "status": "done",
+      "priority": "low",
+      "dueDate": "2026-01-31",
+      "assignee": "test subject"
     }
   ]
 }

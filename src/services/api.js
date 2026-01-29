@@ -1,24 +1,17 @@
-const BASE_URL = "http://localhost:3001/tasks";
+import { request } from "./commonApi";
 
-export const getTasks = async () => {
-    const res = await fetch(BASE_URL);
-    return res.json();
-}
+export const getTasks = () => {
+  return request("/tasks");
+};
 
-export const createTask = async (tasks) => {
-    const res = await fetch(BASE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(tasks),
-    });
-    return res.json();
-}
+export const createTask = (task) => {
+  return request("/tasks", {
+    method: "POST",
+  }, task);
+};
 
-export const updateTask = async (id, updatedTask) => {
-    const res = await fetch(`${BASE_URL}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedTask),
-    });
-    return res.json();
-}
+export const updateTask = (id, updatedTask) => {
+  return request(`/tasks/${id}`, {
+    method: "PUT",
+  },updatedTask);
+};
