@@ -1,77 +1,48 @@
-import React, { useState } from "react";
-import TaskForm from "./TaskForm/component";
+import React from "react";
 import useTasks from "../hooks/useTasks";
 import useUpdateTask from "../hooks/useUpdateTask";
 import useCreateTask from "../hooks/useCreateTask";
+import useTaskFilters from "../hooks/useTaskFilters";
+import useTaskActions from "../hooks/useTaskAction";
+import useTaskDragDrop from "../hooks/useDragDrop";
 import TaskSearchFilter from "./TaskSearchFilter";
+import TaskForm from "./TaskForm/component";
 
 const TaskBoard = () => {
   const { tasks, setTasks } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
   const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
 
-  const [curTask, setCurTask] = useState(null);
-  const [showForm, setShowForm] = useState(false);
+  const { filteredTasks, setFilters } = useTaskFilters(tasks);
 
-  const [filters, setFilters] = useState({ search: "", priority: "all" });
+  const {
+    curTask,
+    showForm,
+    submitTask,
+    cancelTask,
+    openCreate,
+    openEdit,
+  } = useTaskActions({ addTask, editTask });
 
-  const filteredTasks = tasks.filter((task) => {
-    const matchTask = task.title
-      .toLowerCase()
-      .includes(filters.search.toLowerCase());
-
-    const matchPriority =
-      filters.priority === "all" || task.priority === filters.priority;
-
-    return matchTask && matchPriority;
+  const { allowDrop, handleDrop } = useTaskDragDrop({
+    tasks,
+    editTask,
   });
 
-  const handleSubmit = (data) => {
-    if (!data) return;
+  const columns = [
+    { title: "Todo", status: "todo" },
+    { title: "In Progress", status: "in-progress" },
+    { title: "Done", status: "done" },
+  ];
 
-    if (curTask) {
-      editTask({ ...curTask, ...data });
-    } else {
-      addTask(data);
-    }
-
-    setCurTask(null);
-    setShowForm(false);
-  };
-
-  const handleCancel = () => {
-    setCurTask(null);
-    setShowForm(false);
-  };
-
-  const handleDrop = (e, newStatus) => {
-    e.preventDefault();
-
-    const taskId = e.dataTransfer.getData("taskId");
-    const taskToUpdate = tasks.find((t) => t.id == taskId);
-
-    if (!taskToUpdate || taskToUpdate.status === newStatus) return;
-
-    editTask({
-      ...taskToUpdate,
-      status: newStatus,
-    });
-  };
-
-  const allowDrop = (e) => e.preventDefault();
-
-  const todoTasks = filteredTasks.filter((t) => t.status === "todo");
-
-  const inProgressTasks = filteredTasks.filter((t) => t.status === "in-progress");
-
-  const doneTasks = filteredTasks.filter((t) => t.status === "done");
-
-  const renderTasks = (taskList) =>
-    taskList.map((t) => (
+  const renderTasks = (list) =>
+    list.map((t) => (
       <div
         key={t.id}
         draggable
-        onDragStart={(e) => e.dataTransfer.setData("taskId", t.id)}
+        onDragStart={(e) =>
+          e.dataTransfer.setData("taskId", t.id)
+        }
         style={{
           backgroundColor: "#fff",
           padding: "12px",
@@ -80,25 +51,16 @@ const TaskBoard = () => {
           boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
         }}
       >
-        <h4 style={{ margin: "0 0 6px 0", color: "#111827" }}>{t.title}</h4>
+        <h4 style={{ margin: "0 0 6px", color: "#111827" }}>
+          {t.title}
+        </h4>
 
-        <p style={{ fontSize: "13px", margin: "2px 0", color: "#374151" }}>
+        <p style={{ fontSize: "13px", margin: "2px 0" }}>
           Priority: <b>{t.priority}</b>
         </p>
 
-        <p style={{ fontSize: "13px", margin: "2px 0", color: "#374151" }}>
-          Due: {t.dueDate || "-"}
-        </p>
-
-        <p style={{ fontSize: "13px", margin: "2px 0", color: "#374151" }}>
-          Assignee: {t.assignee || "-"}
-        </p>
-
         <button
-          onClick={() => {
-            setCurTask(t);
-            setShowForm(true);
-          }}
+          onClick={() => openEdit(t)}
           style={{
             marginTop: "8px",
             background: "#16a34a",
@@ -116,12 +78,15 @@ const TaskBoard = () => {
     ));
 
   return (
-    <div style={{ padding: "20px", background: "#f9fafb", minHeight: "100vh" }}>
+    <div
+      style={{
+        padding: "20px",
+        background: "#f9fafb",
+        minHeight: "100vh",
+      }}
+    >
       <button
-        onClick={() => {
-          setCurTask(null);
-          setShowForm(true);
-        }}
+        onClick={openCreate}
         style={{
           padding: "10px 14px",
           marginBottom: "16px",
@@ -141,10 +106,10 @@ const TaskBoard = () => {
       {showForm && (
         <TaskForm
           open={showForm}
-          onSubmit={handleSubmit}
           curTask={curTask}
           controls={TASK_FORM_CONTROLLER}
-          onCancel={handleCancel}
+          onSubmit={submitTask}
+          onCancel={cancelTask}
         />
       )}
 
@@ -155,19 +120,13 @@ const TaskBoard = () => {
           marginTop: "20px",
         }}
       >
-        {[
-          { title: "Todo", status: "todo", list: todoTasks },
-          {
-            title: "In Progress",
-            status: "in-progress",
-            list: inProgressTasks,
-          },
-          { title: "Done", status: "done", list: doneTasks },
-        ].map((col) => (
+        {columns.map((col) => (
           <div
             key={col.status}
             onDragOver={allowDrop}
-            onDrop={(e) => handleDrop(e, col.status)}
+            onDrop={(e) =>
+              handleDrop(e, col.status)
+            }
             style={{
               flex: 1,
               background: "#eef2ff",
@@ -185,7 +144,12 @@ const TaskBoard = () => {
             >
               {col.title}
             </h3>
-            {renderTasks(col.list)}
+
+            {renderTasks(
+              filteredTasks.filter(
+                (t) => t.status === col.status
+              )
+            )}
           </div>
         ))}
       </div>
