@@ -12,6 +12,7 @@ const Input = ({
   return (
     <input
       {...field}
+      value={field.value ?? ""}
       style={style}
       {...rest}
       type={inputType}

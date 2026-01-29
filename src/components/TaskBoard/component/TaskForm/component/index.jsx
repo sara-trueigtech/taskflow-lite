@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import FormField from "../../../../../common/commonFormField";
+import CommonFormController from "../../../../../common/commonFormController";
 
-const TaskForm = ({ onSubmit = () => {}, curTask = [], controls = [] }) => 
+const TaskForm = ({ onSubmit = () => {}, curTask = null, controls = [] }) => 
   {
   
   const {
@@ -61,18 +62,7 @@ const TaskForm = ({ onSubmit = () => {}, curTask = [], controls = [] }) =>
         }}
       >
 
-        {controls.map((tag) => (
-          <div key={tag.name}>
-            <Controller
-              name={tag.name}
-              control={control}
-              rules={{required: tag.isRequired}}
-              render={({field}) => {
-                return <FormField field={field} config={tag} />
-              }}
-            />
-          </div>
-        ))}
+        <CommonFormController controls={controls} control={control}/>
 
         <button
           type="submit"

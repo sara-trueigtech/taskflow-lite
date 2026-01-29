@@ -1,10 +1,16 @@
-import React from 'react'
-import { Controller, useForm } from 'react-hook-form';
-import useLogin from '../Hooks/useLogin';
-import FormField from '../../../common/commonFormField';
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import useLogin from "../Hooks/useLogin";
+import FormField from "../../../common/commonFormField";
+import CommonFormController from "../../../common/commonFormController";
 
 const Login = () => {
-  const { register, handleSubmit, control, formState } = useForm();
+  const { register, handleSubmit, control, formState } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
   const { handleLogin, loading, LOGIN_FORM_CONTROLLER } = useLogin();
 
   return (
@@ -24,21 +30,12 @@ const Login = () => {
           borderRadius: "6px",
         }}
       >
-        <h3 style={{ textAlign: "center", marginBottom: "15px" }}>
-          Login
-        </h3>
+        <h3 style={{ textAlign: "center", marginBottom: "15px" }}>Login</h3>
 
-        {LOGIN_FORM_CONTROLLER.map((tag) => (
-          <Controller 
-          key={tag.name}
-          name={tag.name}
+        <CommonFormController
+          controls={LOGIN_FORM_CONTROLLER}
           control={control}
-          rules={{required: tag.isRequired}}
-          render={({field, fieldState}) => {
-            return <FormField field={field} config={tag} error={fieldState.error}/>
-          }}
-          />
-        ))}
+        />
 
         <button
           type="submit"
@@ -49,9 +46,9 @@ const Login = () => {
             backgroundColor: loading ? "#a5b4fc" : "#4f46e5",
             color: "#fff",
             border: "none",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
-          disabled = {loading}
+          disabled={loading}
         >
           {loading ? "logging in..." : "login"}
         </button>
