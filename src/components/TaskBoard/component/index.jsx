@@ -124,6 +124,7 @@ const TaskBoard = () => {
 
       {showForm && (
         <TaskForm
+        open={showForm}
           onSubmit={handleSubmit}
           curTask={curTask}
           controls={TASK_FORM_CONTROLLER}

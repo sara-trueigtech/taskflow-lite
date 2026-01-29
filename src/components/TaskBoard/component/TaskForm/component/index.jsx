@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import CommonFormController from "../../../../../common/commonFormController";
 
@@ -37,6 +37,25 @@ const TaskForm = ({
     }
   }, [curTask, reset]);
 
+  const dialogRef = useRef(null);
+
+   useEffect(() => {
+    if (!dialogRef.current) return;
+
+    if (open) {
+      dialogRef.current.showModal();
+    } else {
+      dialogRef.current.close();
+    }
+  }, [open]);
+
+  // const handleClose = () => {
+  //   reset();
+  //   dialogRef.current.close();
+  //   onCancel();
+  // };
+
+
   const handleFormSubmit = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     onSubmit(data);
@@ -45,19 +64,37 @@ const TaskForm = ({
 
   const handleCancel = () => {
     reset();
+    dialogRef.current.close();
     onCancel();
   };
 
   return (
+  //   <div
+  //   style={{
+  //     position: "fixed",
+  //     inset: 0,
+  //     backgroundColor: "rgba(0, 0, 0, 0.4)", 
+  //     display: "flex",
+  //     alignItems: "center",
+  //     justifyContent: "center",
+  //     zIndex: 1000,
+  //   }}
+  // >
+
+  <dialog ref={dialogRef}
+      onCancel={handleCancel}
+      style={{
+        border: "none",
+        borderRadius: "10px",
+        
+      }}>
     <form
       onSubmit={handleSubmit(handleFormSubmit)}
       style={{
-        maxWidth: "420px",
-        margin: "20px auto",
+        width: "420px",
         padding: "24px",
         borderRadius: "10px",
         backgroundColor: "#ffffff",
-        boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
         display: "flex",
         flexDirection: "column",
         gap: "14px",
@@ -69,7 +106,6 @@ const TaskForm = ({
 
       <CommonFormController controls={controls} control={control} />
 
-      {/* Buttons */}
       <div
         style={{
           display: "flex",
@@ -116,6 +152,9 @@ const TaskForm = ({
         </button>
       </div>
     </form>
+    
+    {/* </div> */}
+    </dialog>
   );
 };
 
