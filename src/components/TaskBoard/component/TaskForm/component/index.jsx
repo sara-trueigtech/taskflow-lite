@@ -7,6 +7,7 @@ const TaskForm = ({
   curTask = null,
   controls = [],
   onCancel = () => {},
+  open = false
 }) => {
   const {
     control,
