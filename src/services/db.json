@@ -5,6 +5,18 @@
       "email": "admin@test.com",
       "password": "123456",
       "name": "Admin User"
+    },
+    {
+      "id": "22c7",
+      "name": "sara",
+      "email": "sara@email.com",
+      "password": "123"
+    },
+    {
+      "id": "514f",
+      "name": "test",
+      "email": "test@email.com",
+      "password": "123"
     }
   ],
   "tasks": [

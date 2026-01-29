@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { createUser, getUsers } from "../../../services/userApi";
-import { SIGNUP_FORM_CONTROLLER } from "../constants";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import { SIGNUP_FORM_CONTROLLER } from "../constant";
 import { useNavigate } from "react-router-dom";
 
 const useSignup = () => {
+  const { signup } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -11,18 +12,11 @@ const useSignup = () => {
     try {
       setLoading(true);
 
-      const users = await getUsers();
-      const exists = users.find((u) => u.email === data.email);
+      await signup(data); 
 
-      if (exists) {
-        alert("User already exists");
-        return;
-      }
-
-      await createUser(data);
       navigate("/login");
     } catch (err) {
-      alert(err.message);
+      return (err.message);
     } finally {
       setLoading(false);
     }

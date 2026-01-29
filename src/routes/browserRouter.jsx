@@ -4,6 +4,7 @@ import Dashboard from "../components/Dashboard/component";
 import Login from "../components/Login/component";
 import AuthProvider from "../context/AuthProvider";
 import ErrorPage from "../common/commonErrorPage";
+import Signup from "../components/Signup/component";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,15 @@ const router = createBrowserRouter([
     element: (
       <AuthProvider>
         <Login />
+      </AuthProvider>
+    ),
+    errorElement: <ErrorPage />, 
+  },
+  {
+    path: "/signup",
+    element: (
+      <AuthProvider>
+        <Signup />
       </AuthProvider>
     ),
     errorElement: <ErrorPage />, 

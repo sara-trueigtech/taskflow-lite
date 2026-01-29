@@ -3,6 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import useLogin from "../Hooks/useLogin";
 import FormField from "../../../common/commonFormField";
 import CommonFormController from "../../../common/commonFormController";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { register, handleSubmit, control, formState } = useForm({
@@ -19,6 +20,7 @@ const Login = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column"
       }}
     >
       <form
@@ -53,6 +55,12 @@ const Login = () => {
           {loading ? "logging in..." : "login"}
         </button>
       </form>
+      <p style={{ textAlign: "center", marginTop: "15px" }}>
+        Don't have an account?{" "}
+        <Link to="/signup" style={{ color: "#4f46e5", cursor: "pointer" }}>
+          Sign Up
+        </Link>
+      </p>
     </div>
   );
 };

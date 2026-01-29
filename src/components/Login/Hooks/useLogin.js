@@ -4,27 +4,25 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN_FORM_CONTROLLER } from "../constants";
 
 function useLogin() {
-    const {login} = useContext(AuthContext);
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-    const handleLogin = async(data) => {
-        setLoading(true);
-        login(data);
-        try{
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            navigate("/");
-        }
-        catch(err){
-            console.log(err);
-        }
-        finally{
-            setLoading(false);
-        }
-        
-    };
+  const handleLogin = async (data) => {
+    try {
+      setLoading(true);
 
-    return {handleLogin, loading, LOGIN_FORM_CONTROLLER};
+      await login(data); 
+
+      navigate("/");
+    } catch (err) {
+      return(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {handleLogin, loading, LOGIN_FORM_CONTROLLER };
 }
 
 export default useLogin;
