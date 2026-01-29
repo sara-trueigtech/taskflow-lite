@@ -3,9 +3,12 @@ import { Controller, useForm } from "react-hook-form";
 import FormField from "../../../../../common/commonFormField";
 import CommonFormController from "../../../../../common/commonFormController";
 
-const TaskForm = ({ onSubmit = () => {}, curTask = null, controls = [] }) => 
-  {
-  
+const TaskForm = ({
+  onSubmit = () => {},
+  curTask = null,
+  controls = [],
+  onCancel = () => {},
+}) => {
   const {
     control,
     register,
@@ -44,7 +47,11 @@ const TaskForm = ({ onSubmit = () => {}, curTask = null, controls = [] }) =>
     reset();
   };
 
-  
+  const handleCancel = () => {
+    reset();
+    onCancel();
+  };
+
   return (
     <>
       <form
@@ -61,8 +68,7 @@ const TaskForm = ({ onSubmit = () => {}, curTask = null, controls = [] }) =>
           backgroundColor: "#fafafa",
         }}
       >
-
-        <CommonFormController controls={controls} control={control}/>
+        <CommonFormController controls={controls} control={control} />
 
         <button
           type="submit"
@@ -82,6 +88,21 @@ const TaskForm = ({ onSubmit = () => {}, curTask = null, controls = [] }) =>
             : curTask?.id
               ? "Update Task"
               : "Add Task"}
+        </button>
+
+        <button
+          type="button"
+          onClick={handleCancel}
+          style={{
+            padding: "10px",
+            backgroundColor: "#fb4444",
+            color: "#ffffff",
+            border: "1px solid",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Cancel
         </button>
       </form>
     </>

@@ -10,15 +10,24 @@ const TaskBoard = () => {
   const { addTask,TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
 
   const [curTask, setCurTask] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   const handleSubmit = (data) => {
+    if (!data) return;
     if (curTask) {
       editTask({ ...curTask, ...data });
-      setCurTask(null);
     } else {
       addTask(data);
     }
+    setCurTask(null);
+    setShowForm(false);
   };
+  
+  const handleCancel = () => {
+    setCurTask(null);
+    setShowForm(false);
+  };
+
 
   const handleDrop = (e, newStatus) => {
     e.preventDefault();
@@ -66,14 +75,17 @@ const TaskBoard = () => {
         </p>
 
         <button
-          onClick={() => setCurTask(t)}
+          onClick={() => {
+            setCurTask(t);
+            setShowForm(true);
+          }}
           style={{
-            marginTop: "8px",
-            padding: "4px 8px",
-            fontSize: "12px",
-            cursor: "pointer",
+            marginTop: "6px",
             background: "green",
-            color: "white",
+            color: "#fff",
+            border: "none",
+            padding: "4px 8px",
+            cursor: "pointer",
           }}
         >
           Update
@@ -83,7 +95,32 @@ const TaskBoard = () => {
 
   return (
     <>
-      <TaskForm onSubmit={handleSubmit} curTask={curTask} controls={TASK_FORM_CONTROLLER}/>
+      <button
+        onClick={() => {
+          setCurTask(null);
+          setShowForm(true);
+        }}
+        style={{
+          padding: "8px 12px",
+          marginBottom: "10px",
+          background: "#1976d2",
+          color: "#fff",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
+        + Add Task
+      </button>
+
+      {showForm && (
+        <TaskForm
+          onSubmit={handleSubmit}
+          curTask={curTask}
+          controls={TASK_FORM_CONTROLLER}
+          onCancel={handleCancel}
+        />
+      )}
 
       <div
         style={{
