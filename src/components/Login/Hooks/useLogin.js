@@ -14,7 +14,7 @@ function useLogin() {
 
       await login(data); 
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       return(err.message);
     } finally {

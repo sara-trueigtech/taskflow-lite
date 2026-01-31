@@ -5,35 +5,31 @@ import Login from "../components/Login/component";
 import AuthProvider from "../context/AuthProvider";
 import ErrorPage from "../common/commonErrorPage";
 import Signup from "../components/Signup/component";
+import AppLayout from "../components/AppLayout";
+import Home from "../components/Home";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: (
       <AuthProvider>
-        <ProtectedRoutes />
+        <AppLayout />
       </AuthProvider>
     ),
-    errorElement: <ErrorPage />, 
-    children: [{ index:true, element: <Dashboard /> }],
-  },
-  {
-    path: "/login",
-    element: (
-      <AuthProvider>
-        <Login />
-      </AuthProvider>
-    ),
-    errorElement: <ErrorPage />, 
-  },
-  {
-    path: "/signup",
-    element: (
-      <AuthProvider>
-        <Signup />
-      </AuthProvider>
-    ),
-    errorElement: <ErrorPage />, 
+    errorElement: <ErrorPage />,
+
+    children: [
+      { index: true, element: <Home /> },
+
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <Signup /> },
+
+      {
+        element: <ProtectedRoutes />,
+        children: [
+          { path: "dashboard", element: <Dashboard /> },
+        ],
+      },
+    ],
   },
 ]);
 
