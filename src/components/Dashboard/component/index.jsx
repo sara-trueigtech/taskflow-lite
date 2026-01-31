@@ -13,36 +13,7 @@ const Dashboard = () => {
         padding: "20px",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "20px",
-          backgroundColor: "#fff",
-          padding: "12px 16px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-        }}
-      >
-        <h2 style={{ margin: 0, color: "#111827" }}>Task Dashboard</h2>
-
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: "8px 14px",
-            backgroundColor: "#dc2626",
-            color: "#fff",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-            fontWeight: "500",
-          }}
-        >
-          Logout
-        </button>
-      </div>
-
+      
       <div
         style={{
           backgroundColor: "#fff",
