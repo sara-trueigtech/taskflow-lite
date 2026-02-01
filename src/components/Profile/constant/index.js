@@ -1,4 +1,4 @@
-export const SIGNUP_FORM_CONTROLLER = [
+export const PROFILE_FORM_CONTROLLER = [
   {
     name: "username",
     type: "input",
@@ -30,11 +30,11 @@ export const SIGNUP_FORM_CONTROLLER = [
     },
   },
   {
-    name: "password",
+    name: "address",
     type: "input",
-    inputType: "password",
-    placeholder: "Password",
-    isRequired: "Password is required",
+    inputType: "text",
+    placeholder: "address",
+    isRequired: "Address is required",
     style: {
       marginTop: "10px",
       padding: "10px",

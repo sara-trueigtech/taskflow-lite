@@ -8,8 +8,11 @@ import useTaskDragDrop from "../hooks/useDragDrop";
 import TaskSearchFilter from "./TaskSearchFilter";
 import TaskForm from "./TaskForm/component";
 import useDeleteTask from "../hooks/useDelete";
+import Profile from "../../Profile/component";
+import { useOutletContext } from "react-router-dom";
 
 const TaskBoard = () => {
+  const {openProfile, setOpenProfile} = useOutletContext();
   const { tasks, setTasks } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
   const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
@@ -140,6 +143,8 @@ const TaskBoard = () => {
           onCancel={cancelTask}
         />
       )}
+
+      <Profile open={openProfile} onClose={() => setOpenProfile(false)} />
 
       <div
         style={{

@@ -4,7 +4,7 @@ import { PROFILE_MENU } from "../constant";
 import useLogout from "../../Dashboard/hooks/useLogout";
 import { Link } from "react-router-dom";
 
-const Header = ({ onLoginClick, onSignupClick }) => {
+const Header = ({ onLoginClick, onSignupClick, onProfileClick }) => {
   const { user, logout } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const { handleLogout } = useLogout();
@@ -44,6 +44,7 @@ const Header = ({ onLoginClick, onSignupClick }) => {
                   onClick={() => {
                     setOpen(false);
                     if (item.label === "Logout") handleLogout();
+                    if (item.label === "Profile") onProfileClick();
                   }}
                   className="w-full text-left px-4 py-2 hover:bg-gray-100"
                 >

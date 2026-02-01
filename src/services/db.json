@@ -29,6 +29,24 @@
       "name": "abhi",
       "email": "abhi@email.com",
       "password": "123"
+    },
+    {
+      "id": "206e",
+      "name": "demo",
+      "email": "demo@email.com",
+      "password": "123"
+    },
+    {
+      "id": "9385",
+      "username": "ray",
+      "email": "ray@email.com",
+      "password": "123",
+      "phone": "",
+      "gender": "",
+      "dob": "",
+      "address": "asdfghjkl",
+      "zipcode": "",
+      "state": ""
     }
   ],
   "tasks": [

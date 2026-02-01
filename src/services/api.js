@@ -28,6 +28,9 @@ export const post = (url, data) => {
 export const put = (url, data) => {
   return request(url, { method: "PUT" }, data);
 };
+export const patch = (url, data) => {
+  return request(url, { method: "PATCH" }, data);
+};
 
 export const remove = (url) => {
   return request(url, { method: "DELETE" });

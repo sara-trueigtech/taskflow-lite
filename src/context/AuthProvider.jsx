@@ -18,6 +18,11 @@ const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+  const updateUserCtx = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+  };
+
   const signup = async (data) => {
     const users = await getUsers();
 
@@ -60,7 +65,7 @@ const AuthProvider = ({ children }) => {
   if (loading) return null; 
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, signup }}>
+    <AuthContext.Provider value={{ user, updateUserCtx, login, logout, signup }}>
       {children}
     </AuthContext.Provider>
   );
