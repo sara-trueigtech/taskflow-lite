@@ -3,7 +3,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_FORM_CONTROLLER } from "../constants";
 
-function useLogin() {
+function useLogin(onSuccess) {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -14,6 +14,7 @@ function useLogin() {
 
       await login(data); 
 
+      onSuccess();
       navigate("/dashboard");
     } catch (err) {
       return(err.message);

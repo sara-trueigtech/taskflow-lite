@@ -4,7 +4,7 @@ import { PROFILE_MENU } from "../constant";
 import useLogout from "../../Dashboard/hooks/useLogout";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ onLoginClick }) => {
   const { user, logout } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const { handleLogout } = useLogout();
@@ -17,9 +17,9 @@ const Header = () => {
 
       {!user ? (
         <div className="flex gap-4">
-          <Link to="/login"><button className="text-gray-600 hover:text-black">
+          <button className="text-gray-600 hover:text-black" onClick={onLoginClick}>
             Login
-          </button></Link>
+          </button>
           <Link to="/signup"><button className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800">
             Signup
           </button></Link>
