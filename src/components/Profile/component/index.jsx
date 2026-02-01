@@ -4,24 +4,25 @@ import CommonFormController from "../../../common/commonFormController";
 import { useProfileUpdate } from "../hooks/useProfileUpdate";
 import { AuthContext } from "../../../context/AuthContext";
 
-const Profile = ({ open = false, onClose = () => {}}) => {
+const Profile = ({ open = false, onClose = () => {} }) => {
   const { control, handleSubmit, reset } = useForm();
-  const { handleProfileUpdate, loading, PROFILE_FORM_CONTROLLER } = useProfileUpdate(onClose);
+  const { handleProfileUpdate, loading, PROFILE_FORM_CONTROLLER } =
+    useProfileUpdate(onClose);
   const dialogRef = useRef(null);
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-    useEffect(() => {
+  useEffect(() => {
     if (user) {
       reset({
-        fullName: user.name,
-        username: user.username,
-        email: user.email,
+        name: user.name || "",
+        username: user.username || "",
+        email: user.email || "",
         phone: user.phone || "",
         gender: user.gender || "",
         dob: user.dob || "",
         address: user.address || "",
-        zipcode: user.zipcode || "",
         state: user.state || "",
+        zipcode: user.zipcode || "",
       });
     }
   }, [user, reset]);
@@ -52,9 +53,7 @@ const Profile = ({ open = false, onClose = () => {}}) => {
           margin: "auto",
         }}
       >
-        <div
-          style={{ padding: "24px" }}
-        >
+        <div style={{ padding: "24px" }}>
           <form
             onSubmit={handleSubmit(handleProfileUpdate)}
             style={{
@@ -64,7 +63,6 @@ const Profile = ({ open = false, onClose = () => {}}) => {
               borderRadius: "10px",
             }}
           >
-
             <CommonFormController
               controls={PROFILE_FORM_CONTROLLER}
               control={control}
