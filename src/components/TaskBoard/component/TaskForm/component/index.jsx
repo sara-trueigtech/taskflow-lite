@@ -2,26 +2,21 @@ import React from "react";
 import CommonFormController from "../../../../../common/commonFormController";
 import useTaskForm from "../../../hooks/useTaskForm";
 
-const TaskForm = ({
-  onSubmit,
-  curTask,
-  controls,
-  onCancel,
-  open,
-}) => {
-  const {
-    dialogRef,
-    control,
-    handleSubmit,
-    cancelHandler,
-    isSubmitting,
-  } = useTaskForm({ curTask, onSubmit, onCancel, open });
+const TaskForm = ({ onSubmit, curTask, controls, onCancel, open }) => {
+  const { dialogRef, control, handleSubmit, cancelHandler, isSubmitting } =
+    useTaskForm({ curTask, onSubmit, onCancel, open });
 
   return (
     <dialog
       ref={dialogRef}
       onCancel={cancelHandler}
-      style={{ border: "none", borderRadius: "10px" }}
+      style={{
+        border: "none",
+        borderRadius: "12px",
+        padding: "0",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+        margin: "auto",
+      }}
     >
       <form
         onSubmit={handleSubmit}
