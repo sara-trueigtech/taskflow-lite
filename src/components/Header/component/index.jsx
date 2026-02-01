@@ -4,7 +4,7 @@ import { PROFILE_MENU } from "../constant";
 import useLogout from "../../Dashboard/hooks/useLogout";
 import { Link } from "react-router-dom";
 
-const Header = ({ onLoginClick }) => {
+const Header = ({ onLoginClick, onSignupClick }) => {
   const { user, logout } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const { handleLogout } = useLogout();
@@ -20,9 +20,9 @@ const Header = ({ onLoginClick }) => {
           <button className="text-gray-600 hover:text-black" onClick={onLoginClick}>
             Login
           </button>
-          <Link to="/signup"><button className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800">
+          <button className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800" onClick={onSignupClick}>
             Signup
-          </button></Link>
+          </button>
         </div>
       ) : (
         <div className="relative">

@@ -1,9 +1,10 @@
 import React from 'react'
 import { useOutletContext } from 'react-router-dom';
 import Login from '../Login/component';
+import Signup from '../Signup/component';
 
 const Home = () => {
-  const { openLogin, setOpenLogin } = useOutletContext();
+  const { openLogin, setOpenLogin, openSignup, setOpenSignup } = useOutletContext();
 
   return (
     <>
@@ -16,6 +17,18 @@ const Home = () => {
       <Login
         open={openLogin}
         onClose={() => setOpenLogin(false)}
+        openSignup={() => {
+          setOpenLogin(false);
+          setOpenSignup(true);
+        }}
+      />
+      <Signup
+        open={openSignup}
+        onClose={() => setOpenSignup(false)}
+        openLogin={() => {
+          setOpenSignup(false);
+          setOpenLogin(true);
+        }}
       />
     </>
   );

@@ -17,6 +17,18 @@
       "name": "test",
       "email": "test@email.com",
       "password": "123"
+    },
+    {
+      "id": "15a3",
+      "name": "test subject",
+      "email": "testsubject@email.com",
+      "password": "123"
+    },
+    {
+      "id": "8435",
+      "name": "abhi",
+      "email": "abhi@email.com",
+      "password": "123"
     }
   ],
   "tasks": [

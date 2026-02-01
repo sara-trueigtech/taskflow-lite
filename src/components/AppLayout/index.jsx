@@ -4,12 +4,13 @@ import { Outlet } from 'react-router-dom'
 
 const AppLayout = () => {
   const [openLogin, setOpenLogin] = useState(false);
+  const [openSignup, setOpenSignup] = useState(false);
 
   return (
     <>
-      <Header onLoginClick={() => setOpenLogin(true)} />
+      <Header onLoginClick={() => setOpenLogin(true)} onSignupClick={() => setOpenSignup(true)} />
 
-      <Outlet context={{ openLogin, setOpenLogin }} />
+      <Outlet context={{ openLogin, setOpenLogin, openSignup, setOpenSignup }} />
     </>
   );
 }

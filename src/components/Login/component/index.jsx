@@ -4,7 +4,7 @@ import useLogin from "../Hooks/useLogin";
 import CommonFormController from "../../../common/commonFormController";
 import { Link } from "react-router-dom";
 
-const Login = ({ open, onClose }) => {
+const Login = ({ open, onClose, openSignup }) => {
   const { handleSubmit, control } = useForm({
     defaultValues: {
       email: "",
@@ -100,8 +100,8 @@ const Login = ({ open, onClose }) => {
               }}
             >
               Don&apos;t have an account?{" "}
-              <Link
-                to="/signup"
+              <span
+                onClick={openSignup}
                 style={{
                   color: "#4f46e5",
                   fontWeight: "500",
@@ -109,7 +109,7 @@ const Login = ({ open, onClose }) => {
                 }}
               >
                 Sign Up
-              </Link>
+              </span>
             </p>
           </div>
         </div>
