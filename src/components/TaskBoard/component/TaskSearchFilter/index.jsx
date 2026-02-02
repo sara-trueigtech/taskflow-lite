@@ -19,13 +19,7 @@ const TaskSearchFilter = ({ onChange }) => {
   }, [search, priority]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "12px",
-        marginBottom: "16px",
-      }}
-    >
+    <div className="flex gap-4">
       <CommonFormController
         controls={SEARCH_FILTER_CONTROLLER}
         control={control}

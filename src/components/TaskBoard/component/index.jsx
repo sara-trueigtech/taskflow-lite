@@ -1,18 +1,19 @@
 import React from "react";
+import { useOutletContext } from "react-router-dom";
 import useTasks from "../hooks/useTasks";
 import useUpdateTask from "../hooks/useUpdateTask";
 import useCreateTask from "../hooks/useCreateTask";
 import useTaskFilters from "../hooks/useTaskFilters";
 import useTaskActions from "../hooks/useTaskAction";
 import useTaskDragDrop from "../hooks/useDragDrop";
+import useDeleteTask from "../hooks/useDelete";
 import TaskSearchFilter from "./TaskSearchFilter";
 import TaskForm from "./TaskForm/component";
-import useDeleteTask from "../hooks/useDelete";
 import Profile from "../../Profile/component";
-import { useOutletContext } from "react-router-dom";
 
 const TaskBoard = () => {
-  const {openProfile, setOpenProfile} = useOutletContext();
+  const { openProfile, setOpenProfile } = useOutletContext();
+
   const { tasks, setTasks } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
   const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
@@ -45,89 +46,46 @@ const TaskBoard = () => {
       <div
         key={t.id}
         draggable
-        onDragStart={(e) =>
-          e.dataTransfer.setData("taskId", t.id)
-        }
-        style={{
-          backgroundColor: "#fff",
-          padding: "12px",
-          marginBottom: "10px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
-        }}
+        onDragStart={(e) => e.dataTransfer.setData("taskId", t.id)}
+        className="bg-bgColor3 p-3 mb-3 rounded-lg shadow-sm cursor-grab active:cursor-grabbing"
       >
-        <h4 style={{ margin: "0 0 6px", color: "#111827" }}>
+        <h4 className="text-white font-bold text-xl mb-1">
           {t.title}
         </h4>
 
-        <p style={{ fontSize: "13px", margin: "2px 0" }}>
+        <p className="text-sm text-white">
           Priority: <b>{t.priority}</b>
         </p>
-        <p style={{ fontSize: "13px", margin: "2px 0" }}>
+        <p className="text-sm text-white">
           Due Date: <b>{t.dueDate}</b>
         </p>
-        <p style={{ fontSize: "13px", margin: "2px 0" }}>
+        <p className="text-sm text-white">
           Assignee: <b>{t.assignee}</b>
         </p>
 
-        <div style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "80px",
-          gap:"10px"
-        }}>
-        <button
-          onClick={() => openEdit(t)}
-          style={{
-            marginTop: "8px",
-            background: "#16a34a",
-            color: "#fff",
-            border: "none",
-            padding: "6px 10px",
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontSize: "12px",
-          }}
-        >
-          Update
-        </button>
-        <button
-        onClick={() => removeTask(t.id)}
-         style={{
-          background: "#f32f2f",
-            color: "#fff",
-            border: "none",
-            padding: "6px 10px",
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontSize: "12px",
-        }}>
-          Delete
-        </button>
+        <div className="flex flex-col gap-2 mt-3 w-24">
+          <button
+            onClick={() => openEdit(t)}
+            className="buttonStyle w-30 h-12 text-white py-1.5 text-[1.12rem] border border-borderColor2"
+          >
+            Update
+          </button>
+
+          <button
+            onClick={() => removeTask(t.id)}
+            className="buttonStyle w-30 h-12 text-white py-1.5 text-[1.12rem] border border-borderColor2"
+          >
+            Delete
+          </button>
         </div>
       </div>
     ));
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        background: "#f9fafb",
-        minHeight: "100vh",
-      }}
-    >
+    <div className="p-5 bg-bgColor min-h-screen">
       <button
         onClick={openCreate}
-        style={{
-          padding: "10px 14px",
-          marginBottom: "16px",
-          background: "#4f46e5",
-          color: "#fff",
-          border: "none",
-          borderRadius: "6px",
-          cursor: "pointer",
-          fontWeight: "500",
-        }}
+        className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium"
       >
         + Add Task
       </button>
@@ -144,37 +102,20 @@ const TaskBoard = () => {
         />
       )}
 
-      <Profile open={openProfile} onClose={() => setOpenProfile(false)} />
+      <Profile
+        open={openProfile}
+        onClose={() => setOpenProfile(false)}
+      />
 
-      <div
-        style={{
-          display: "flex",
-          gap: "16px",
-          marginTop: "20px",
-        }}
-      >
+      <div className="flex gap-4 mt-6">
         {columns.map((col) => (
           <div
             key={col.status}
             onDragOver={allowDrop}
-            onDrop={(e) =>
-              handleDrop(e, col.status)
-            }
-            style={{
-              flex: 1,
-              background: "#eef2ff",
-              padding: "12px",
-              borderRadius: "10px",
-              minHeight: "400px",
-            }}
+            onDrop={(e) => handleDrop(e, col.status)}
+            className="flex-1 bg-bgColor4 p-4 rounded-xl min-h-[400px]"
           >
-            <h3
-              style={{
-                textAlign: "center",
-                marginBottom: "12px",
-                color: "#1f2933",
-              }}
-            >
+            <h3 className="text-center text-2xl font-bold text-gray-800 mb-3">
               {col.title}
             </h3>
 

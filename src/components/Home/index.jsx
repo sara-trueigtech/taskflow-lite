@@ -8,8 +8,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="p-10">
-        <h2 className="text-3xl font-bold">
+      <div className="p-10 bg-bgColor2 min-h-[calc(100vh-5.43rem)]">
+        <h2 className="text-3xl font-bold text-white">
           Welcome to Task Flow Lite
         </h2>
       </div>

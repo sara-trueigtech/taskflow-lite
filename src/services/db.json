@@ -77,7 +77,7 @@
     {
       "id": "52ba",
       "title": "tassk",
-      "status": "todo",
+      "status": "in-progress",
       "priority": "low",
       "dueDate": "2026-01-31",
       "assignee": "test subject"
@@ -85,7 +85,7 @@
     {
       "id": "91b6",
       "title": "task123",
-      "status": "in-progress",
+      "status": "todo",
       "priority": "low",
       "dueDate": "2026-01-30",
       "assignee": "sara"

@@ -81,12 +81,6 @@ export const SEARCH_FILTER_CONTROLLER = [
     type: "input",
     inputType: "text",
     placeholder: "Search tasks...",
-    style: {
-      flex: 1,
-      padding: "8px",
-      borderRadius: "6px",
-      border: "1px solid #d1d5db",
-    },
   },
   {
     name: "priority",
@@ -97,11 +91,5 @@ export const SEARCH_FILTER_CONTROLLER = [
       { label: "Medium", value: "medium" },
       { label: "High", value: "high" },
     ],
-    style: {
-      padding: "8px",
-      borderRadius: "6px",
-      border: "1px solid #d1d5db",
-      minWidth: "120px",
-    },
   },
 ];
