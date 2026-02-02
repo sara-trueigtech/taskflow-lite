@@ -1,7 +1,7 @@
 import Input from "../commonInput";
 import Select from "../commonSelect";
 
-const FormField = ({ field, config, error, className }) => {
+const FormField = ({ field, config, error}) => {
   const {
     type,
     options,
@@ -11,7 +11,6 @@ const FormField = ({ field, config, error, className }) => {
     disablePast,
     disableTyping,
     label,
-    labelClassName,
   } = config;
 
   const renderField = () => {
@@ -25,7 +24,6 @@ const FormField = ({ field, config, error, className }) => {
             placeholder={placeholder}
             disablePast={disablePast}
             disableTyping={disableTyping}
-            className={className}
           />
         );
 
@@ -35,7 +33,6 @@ const FormField = ({ field, config, error, className }) => {
             field={field}
             options={options}
             style={style}
-            className={className}
           />
         );
 
@@ -50,7 +47,7 @@ const FormField = ({ field, config, error, className }) => {
         {label && (
         <label
           htmlFor={field.name}
-          className={labelClassName}
+          className="labelStyle"
         >
           {label}
         </label>
@@ -58,7 +55,7 @@ const FormField = ({ field, config, error, className }) => {
         {renderField()}
 
         {error && (
-          <p >{error.message}</p>
+          <p className="text-red-400 text-sm h-[1.25rem]">{error.message}</p>
         )}
       </div>
     </div>

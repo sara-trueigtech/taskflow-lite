@@ -5,12 +5,12 @@ const Input = ({
   placeholder="text",
   disablePast = false,
   disableTyping = false,
-  placwholder = "text",
   ...rest
 }) => {
   const today = inputType === "date" ? new Date().toISOString().split("T")[0] : undefined;
   return (
     <input
+    className="inputStyle"
       {...field}
       value={field.value ?? ""}
       style={style}
