@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import useLogin from "../Hooks/useLogin";
 import CommonFormController from "../../../common/commonFormController";
-import { Link } from "react-router-dom";
+import image from "../../../assets/image.png";
 
 const Login = ({ open, onClose, openSignup }) => {
   const { handleSubmit, control } = useForm({
@@ -29,88 +29,67 @@ const Login = ({ open, onClose, openSignup }) => {
       <dialog
         ref={dialogRef}
         onClose={onClose}
-        style={{
-          border: "none",
-          borderRadius: "12px",
-          padding: "0",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
-          margin: "auto",
-        }}
+        className=" backdrop:bg-black/60 rounded-xl p-0 text-textColor m-auto"
         onClick={(e) => {
           if (e.target === dialogRef.current) {
             onClose();
           }
         }}
       >
-        <div style={{ padding: "24px" }}>
-          <div>
-            <form
-              onSubmit={handleSubmit(handleLogin)}
-              style={{
-                backgroundColor: "#eef2ff",
-                padding: "24px",
-                width: "320px",
-                borderRadius: "10px",
-                boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-              }}
-            >
-              <h3
-                style={{
-                  textAlign: "center",
-                  marginBottom: "18px",
-                  fontSize: "20px",
-                  fontWeight: "600",
-                  color: "#111827",
-                }}
-              >
-                Login
-              </h3>
+        <div className="max-w-380 max-h-184 bg-bgColor rounded-2xl overflow-hidden flex border border-border">
+          <div className="w-1/2">
+            <img src={image} alt="login" className="object-cover" />
+          </div>
 
-              <CommonFormController
-                controls={LOGIN_FORM_CONTROLLER}
-                control={control}
-              />
+          <div className="w-1/2 flex items-center justify-center">
+            <div className="w-[28rem] h-[38rem] flex flex-col items-center justify-center">
+              <div className="text-center">
+                <h2 className="font-semibold text-[1.72rem] mb-10">Login</h2>
 
-              <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  marginTop: "16px",
-                  backgroundColor: loading ? "#a5b4fc" : "#4f46e5",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "6px",
-                  cursor: loading ? "not-allowed" : "pointer",
-                  fontWeight: "500",
-                  transition: "background 0.2s ease",
-                }}
-              >
-                {loading ? "Logging in..." : "Login"}
-              </button>
-            </form>
+                <div className="w-[28rem] flex flex-col items-center justify-center">
+                  <div className="flex items-center gap-4 mb-10 w-full">
+                    <div className="flex-1 h-px bg-textColor"></div>
 
-            <p
-              style={{
-                textAlign: "center",
-                marginTop: "14px",
-                fontSize: "14px",
-                color: "#374151",
-              }}
-            >
-              Don&apos;t have an account?{" "}
-              <span
-                onClick={openSignup}
-                style={{
-                  color: "#4f46e5",
-                  fontWeight: "500",
-                  textDecoration: "none",
-                }}
-              >
-                Sign Up
-              </span>
-            </p>
+                    <p className="font-semibold text-[1rem]">
+                      Login with email
+                    </p>
+
+                    <div className="flex-1 h-px bg-textColor"></div>
+                  </div>
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit(handleLogin)}>
+                <div className="flex flex-col gap-7">
+                  <CommonFormController
+                    controls={LOGIN_FORM_CONTROLLER}
+                    control={control}
+                  />
+                </div>
+
+                <p className="mt-[0.64rem] text-center font-normal text-[1rem] underline cursor-pointer text-textColor ">
+                  Forgot Your Password?
+                </p>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn mt-28"
+                >
+                  {loading ? "Logging in..." : "Login"}
+                </button>
+              </form>
+
+              <p className="text-center text-sm mt-4">
+                Don&apos;t have an account?{" "}
+                <span
+                  onClick={openSignup}
+                  className="text-link cursor-pointer hover:underline"
+                >
+                  Sign Up
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </dialog>

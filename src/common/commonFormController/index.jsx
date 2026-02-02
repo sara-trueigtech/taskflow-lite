@@ -18,6 +18,7 @@ const CommonFormController = ({ controls = [], control = null}) => {
               field={field}
               config={tag}
               error={fieldState.error}
+              className={tag.className}
             />
           )}
         />

@@ -41,12 +41,13 @@
       "username": "ray",
       "email": "ray@email.com",
       "password": "123",
-      "phone": "",
+      "phone": "1234567890",
       "gender": "",
-      "dob": "",
+      "dob": "2026-02-01",
       "address": "asdfghjkl",
       "zipcode": "",
-      "state": ""
+      "state": "",
+      "name": "rayaa"
     },
     {
       "id": "4c10",
