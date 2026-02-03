@@ -14,6 +14,7 @@ export const PROFILE_FORM_CONTROLLER = [
     placeholder: "User Name",
     label: "User Name",
     isRequired: "Username is required",
+    disableTyping: true
     
   },
   {
@@ -23,6 +24,7 @@ export const PROFILE_FORM_CONTROLLER = [
     placeholder: "Email",
     label: "Email",
     isRequired: "Email is required",
+    disableTyping: true
     
   },
   {

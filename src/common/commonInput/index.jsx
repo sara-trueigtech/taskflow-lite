@@ -18,6 +18,7 @@ const Input = ({
       type={inputType}
       placeholder={placeholder}
       min={disablePast ? today : undefined}
+      disabled={inputType === "date" ? !disableTyping : disableTyping}
       onKeyDown={
         disableTyping && inputType === "date"
           ? (e) => e.preventDefault()
