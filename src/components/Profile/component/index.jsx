@@ -4,12 +4,14 @@ import CommonFormController from "../../../common/commonFormController";
 import { useProfileUpdate } from "../hooks/useProfileUpdate";
 import { AuthContext } from "../../../context/AuthContext";
 import image from "../../../assets/image2.png";
+import { useNavigate } from "react-router-dom";
 
 const Profile = ({ open = false, onClose = () => {} }) => {
   const { control, handleSubmit, reset } = useForm();
   const { handleProfileUpdate, loading, PROFILE_FORM_CONTROLLER } =
     useProfileUpdate(onClose);
   const { user } = useContext(AuthContext);
+  const nav = useNavigate()
 
   useEffect(() => {
     if (user) {
@@ -59,13 +61,21 @@ const Profile = ({ open = false, onClose = () => {} }) => {
               />
             </div>
 
+          <div className="flex items-center justify-center gap-6">
             <button
               type="submit"
               disabled={loading}
-              className="roundButtonStyle mt-8 self-center"
+              className="roundButtonStyle mt-8 "
             >
               {loading ? "updating..." : "Update"}
             </button>
+            <button
+            onClick={() => nav("/dashboard")}
+              className="roundButtonStyle mt-8 "
+            >
+              Cancel
+            </button>
+            </div>
           </form>
         </div>
     </>
