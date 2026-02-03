@@ -6,10 +6,10 @@ import { AuthContext } from "../../../context/AuthContext";
 import image from "../../../assets/image2.png";
 import { useNavigate } from "react-router-dom";
 
-const Profile = ({ open = false, onClose = () => {} }) => {
+const Profile = () => {
   const { control, handleSubmit, reset } = useForm();
   const { handleProfileUpdate, loading, PROFILE_FORM_CONTROLLER } =
-    useProfileUpdate(onClose);
+    useProfileUpdate();
   const { user } = useContext(AuthContext);
   const nav = useNavigate()
 
