@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { PROFILE_MENU } from "../constant";
-import useLogout from "../../Dashboard/hooks/useLogout";
-import { Link } from "react-router-dom";
+import useLogout from "../hooks/useLogout";
+import { Link, useNavigate } from "react-router-dom";
 
-const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}, onProfileClick = () => {} }) => {
+const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}}) => {
   const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const { handleLogout } = useLogout();
+  const nav = useNavigate();
 
   return (
     <header className="w-full bg-bgColor px-6 py-4 flex justify-between items-center border border-borderColor2">
@@ -48,7 +49,7 @@ const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}, onProfileCl
                   onClick={() => {
                     setOpen(false);
                     if (item.label === "Logout") handleLogout();
-                    if (item.label === "Profile") onProfileClick();
+                    if (item.label === "Profile") nav("/profile");
                   }}
                   className="w-full text-left px-4 py-2 hover:bg-inputColor cursor-pointer"
                 >

@@ -9,10 +9,8 @@ import useTaskDragDrop from "../hooks/useDragDrop";
 import useDeleteTask from "../hooks/useDelete";
 import TaskSearchFilter from "./TaskSearchFilter";
 import TaskForm from "./TaskForm/component";
-import Profile from "../../Profile/component";
 
 const TaskBoard = () => {
-  const { openProfile, setOpenProfile } = useOutletContext();
 
   const { tasks, setTasks } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
@@ -101,11 +99,6 @@ const TaskBoard = () => {
           onCancel={cancelTask}
         />
       )}
-
-      <Profile
-        open={openProfile}
-        onClose={() => setOpenProfile(false)}
-      />
 
       <div className="flex gap-4 mt-6">
         {columns.map((col) => (

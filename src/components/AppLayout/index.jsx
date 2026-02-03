@@ -5,7 +5,6 @@ import { Outlet } from 'react-router-dom'
 const AppLayout = () => {
   const [openAuth, setOpenAuth] = useState(false);
   const [authMode, setAuthMode] = useState("");
-  const [openProfile, setOpenProfile] = useState(false);
 
   return (
     <>
@@ -18,10 +17,9 @@ const AppLayout = () => {
           setAuthMode("signup");
           setOpenAuth(true);
         }}
-        onProfileClick={() => setOpenProfile(true)}
       />
 
-      <Outlet context={{ openAuth, setOpenAuth, authMode, setAuthMode, openProfile, setOpenProfile }} />
+      <Outlet context={{ openAuth, setOpenAuth, authMode, setAuthMode}} />
     </>
   );
 };

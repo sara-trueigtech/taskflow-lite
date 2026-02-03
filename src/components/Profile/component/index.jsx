@@ -9,7 +9,6 @@ const Profile = ({ open = false, onClose = () => {} }) => {
   const { control, handleSubmit, reset } = useForm();
   const { handleProfileUpdate, loading, PROFILE_FORM_CONTROLLER } =
     useProfileUpdate(onClose);
-  const dialogRef = useRef(null);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -28,36 +27,18 @@ const Profile = ({ open = false, onClose = () => {} }) => {
     }
   }, [user, reset]);
 
-  useEffect(() => {
-    if (open) {
-      dialogRef.current?.showModal();
-    } else {
-      dialogRef.current?.close();
-    }
-  }, [open]);
-
   return (
     <>
-      <dialog
-        ref={dialogRef}
-        onClose={onClose}
-        onClick={(e) => {
-          if (e.target === dialogRef.current) {
-            onClose();
-          }
-        }}
-        className="backdrop:bg-black/60 rounded-xl p-0 m-auto "
-      >
-        <div className="w-[80rem] bg-bgColor p-5 flex flex-col items-center">
+        <div className="w-full bg-bgColor p-5 flex flex-col items-center">
           <h2 className="text-[1.5rem] font-bold text-white mb-2">
             Personal Information
           </h2>
-{/* 
+
           <img
             src={image}
             alt="Profile"
             className="w-24 h-24 rounded-full object-cover mb-4"
-          /> */}
+          />
 
           {user.name && (
             <p className="text-white font-bold text-3xl mb-[0.05rem]">
@@ -87,7 +68,6 @@ const Profile = ({ open = false, onClose = () => {} }) => {
             </button>
           </form>
         </div>
-      </dialog>
     </>
   );
 };
