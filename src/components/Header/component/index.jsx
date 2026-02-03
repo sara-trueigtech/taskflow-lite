@@ -11,7 +11,7 @@ const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}}) => {
   const nav = useNavigate();
 
   return (
-    <header className="w-full bg-bgColor px-6 py-4 flex justify-between items-center border border-borderColor2">
+    <header className="w-full bg-bgColor px-6 py-4 flex justify-between items-center border border-borderColor2 sticky top-0 ">
       <h1 className="text-xl font-semibold text-white">
         Task Flow Lite
       </h1>

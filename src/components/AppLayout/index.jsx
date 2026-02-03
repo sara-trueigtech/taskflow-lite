@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Header from '../Header/component'
 import { Outlet } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext';
 
 const AppLayout = () => {
-  const [openAuth, setOpenAuth] = useState(false);
-  const [authMode, setAuthMode] = useState("");
+  const {setOpenAuth, setAuthMode} = useContext(AuthContext)
 
   return (
     <>
@@ -19,7 +19,7 @@ const AppLayout = () => {
         }}
       />
 
-      <Outlet context={{ openAuth, setOpenAuth, authMode, setAuthMode}} />
+      <Outlet />
     </>
   );
 };

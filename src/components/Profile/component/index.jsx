@@ -42,7 +42,7 @@ const Profile = () => {
             className="w-24 h-24 rounded-full object-cover mb-4"
           />
 
-          {user.name && (
+          {user?.name && (
             <p className="text-white font-bold text-3xl mb-[0.05rem]">
               {user.name}
             </p>

@@ -3,8 +3,6 @@ import { useOutletContext } from "react-router-dom";
 import AuthModal from "../Login/component";
 
 const Home = () => {
-  const { openAuth, setOpenAuth, authMode, setAuthMode } = useOutletContext();
-
   return (
     <>
       <div className="p-10 bg-bgColor2 min-h-[calc(100vh-5.43rem)]">
@@ -13,12 +11,7 @@ const Home = () => {
         </h2>
       </div>
 
-      <AuthModal
-        open={openAuth}
-        mode={authMode}
-        onClose={() => setOpenAuth(false)}
-        modeToggle={setAuthMode}
-      />
+      <AuthModal/>
     </>
   );
 };

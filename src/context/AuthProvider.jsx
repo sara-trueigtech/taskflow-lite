@@ -7,6 +7,9 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [openAuth, setOpenAuth] = useState(false);
+  const [authMode, setAuthMode] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
@@ -65,7 +68,7 @@ const AuthProvider = ({ children }) => {
   if (loading) return null; 
 
   return (
-    <AuthContext.Provider value={{ user, updateUserCtx, login, logout, signup }}>
+    <AuthContext.Provider value={{ user, updateUserCtx, login, logout, signup, openAuth, setOpenAuth, authMode, setAuthMode }}>
       {children}
     </AuthContext.Provider>
   );
