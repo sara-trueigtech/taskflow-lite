@@ -1,65 +1,97 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import useLogin from "../Hooks/useLogin";
 import CommonFormController from "../../../common/commonFormController";
-import AuthLayout from "../../../common/commonAuthLayout";
+import image from "../../../assets/image.png";
+import { useAuth } from "../Hooks/useAuth";
 
-const Login = ({ open, onClose, openSignup }) => {
-  const { handleSubmit, control } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+const AuthModal = ({ open = "false", onClose = () => {}, defaultMode = "login" }) => {
+  const dialogRef = useRef(null);
+  const [mode, setMode] = useState(defaultMode);
 
-  const { handleLogin, loading, LOGIN_FORM_CONTROLLER } = useLogin(onClose);
+  const { control, handleSubmit } = useForm();
+  const { handleAuth, loading, controls } = useAuth(mode, onClose);
+
+  useEffect(() => {
+    open ? dialogRef.current?.showModal() : dialogRef.current?.close();
+  }, [open]);
 
   return (
-    <>
-      <AuthLayout open={open} onClose={onClose}>
-        <div className="w-1/2 flex items-center justify-center text-white">
-          <div className="w-[28rem] h-[38rem] flex flex-col items-center justify-center">
-            <h2 className="font-semibold text-[1.72rem] mb-10">Login</h2>
+    <dialog
+      ref={dialogRef}
+      onClose={onClose}
+      onClick={(e) => e.target === dialogRef.current && onClose()}
+      className="backdrop:bg-black/60 rounded-xl p-0 m-auto"
+    >
+      <div className="max-w-380 max-h-184 bg-bgColor rounded-xl flex border border-borderColor overflow-hidden">
+        
+        <div className="w-1/2">
+          <img src={image} className="h-full object-cover" />
+        </div>
 
-            <div className="flex items-center gap-4 mb-10 w-full">
-              <span className="flex-1 h-px w-full bg-textColor"></span>
-              <p className="font-semibold text-base text-white">
-                Login with email
+        <div className="w-1/2 flex items-center justify-center text-white">
+          <div className="w-[28rem] h-[38rem] flex flex-col justify-center">
+
+            <h2 className="font-semibold text-[1.72rem] mb-10 text-center">
+              {mode === "login" ? "Login" : "Sign Up"}
+            </h2>
+
+            <div className="flex items-center gap-4 mb-10">
+              <span className="flex-1 h-px bg-textColor"></span>
+              <p className="font-semibold">
+                {mode === "login"
+                  ? "Login with email"
+                  : "Signup with email"}
               </p>
-              <span className="flex-1 h-px w-full bg-textColor"></span>
+              <span className="flex-1 h-px bg-textColor"></span>
             </div>
 
-            <form onSubmit={handleSubmit(handleLogin)}>
+            <form onSubmit={handleSubmit(handleAuth)}>
               <div className="flex flex-col gap-3">
                 <CommonFormController
-                  controls={LOGIN_FORM_CONTROLLER}
+                  controls={controls}
                   control={control}
                 />
               </div>
 
-              <p className="mt-[0.64rem] text-center font-normal text-[1rem] underline cursor-pointer text-textColor ">
-                Forgot Your Password?
-              </p>
+              {mode === "signup" && (
+                <p className="mt-6 text-sm">
+                  I confirm that I am 18 years or older.
+                </p>
+              )}
 
-              <button type="submit" disabled={loading} className="buttonStyle mt-28">
-                {loading ? "Logging in..." : "Login"}
+              <button
+                type="submit"
+                disabled={loading}
+                className="buttonStyle mt-10 w-full cursor-pointer"
+              >
+                {loading
+                  ? "Please wait..."
+                  : mode === "login"
+                  ? "Login"
+                  : "Signup"}
               </button>
             </form>
 
-            <p className="text-center text-sm mt-4 ">
-              Don&apos;t have an account?{" "}
+            <p className="text-center text-sm mt-4">
+              {mode === "login"
+                ? "Don't have an account?"
+                : "Already have an account?"}{" "}
               <span
-                onClick={openSignup}
+                onClick={() =>
+                  setMode(mode === "login" ? "signup" : "login")
+                }
                 className="text-linkColor cursor-pointer hover:underline"
               >
-                Sign Up
+                {mode === "login" ? "Sign Up" : "Login"}
               </span>
             </p>
+
           </div>
         </div>
-      </AuthLayout>
-    </>
+
+      </div>
+    </dialog>
   );
 };
 
-export default Login;
+export default AuthModal;

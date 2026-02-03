@@ -62,6 +62,12 @@
       "address": "asdfghjkl",
       "state": "",
       "zipcode": ""
+    },
+    {
+      "id": "6c59",
+      "username": "sneha",
+      "email": "seha@email.com",
+      "password": "123"
     }
   ],
   "tasks": [

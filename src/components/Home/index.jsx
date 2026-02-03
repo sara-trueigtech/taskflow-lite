@@ -1,10 +1,9 @@
-import React from 'react'
-import { useOutletContext } from 'react-router-dom';
-import Login from '../Login/component';
-import Signup from '../Signup/component';
+import React from "react";
+import { useOutletContext } from "react-router-dom";
+import AuthModal from "../Login/component";
 
 const Home = () => {
-  const { openLogin, setOpenLogin, openSignup, setOpenSignup } = useOutletContext();
+  const { openAuth, setOpenAuth, authMode } = useOutletContext();
 
   return (
     <>
@@ -14,24 +13,13 @@ const Home = () => {
         </h2>
       </div>
 
-      <Login
-        open={openLogin}
-        onClose={() => setOpenLogin(false)}
-        openSignup={() => {
-          setOpenLogin(false);
-          setOpenSignup(true);
-        }}
-      />
-      <Signup
-        open={openSignup}
-        onClose={() => setOpenSignup(false)}
-        openLogin={() => {
-          setOpenSignup(false);
-          setOpenLogin(true);
-        }}
+      <AuthModal
+        open={openAuth}
+        defaultMode={authMode}
+        onClose={() => setOpenAuth(false)}
       />
     </>
   );
-}
+};
 
 export default Home

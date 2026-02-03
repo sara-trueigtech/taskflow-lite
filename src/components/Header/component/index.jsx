@@ -4,23 +4,30 @@ import { PROFILE_MENU } from "../constant";
 import useLogout from "../../Dashboard/hooks/useLogout";
 import { Link } from "react-router-dom";
 
-const Header = ({ onLoginClick, onSignupClick, onProfileClick }) => {
-  const { user, logout } = useContext(AuthContext);
+const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}, onProfileClick = () => {} }) => {
+  const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const { handleLogout } = useLogout();
 
   return (
-    <header className="w-full bg-bgColor shadow-md px-6 py-4 flex justify-between items-center border border-borderColor2">
+    <header className="w-full bg-bgColor px-6 py-4 flex justify-between items-center border border-borderColor2">
       <h1 className="text-xl font-semibold text-white">
         Task Flow Lite
       </h1>
 
       {!user ? (
         <div className="flex gap-4">
-          <button className="text-white buttonStyle w-40 cursor-pointer" onClick={onLoginClick}>
+          <button
+            className="buttonStyle w-40 text-white cursor-pointer"
+            onClick={onLoginClick}
+          >
             Login
           </button>
-          <button className="text-white w-40 buttonStyle cursor-pointer" onClick={onSignupClick}>
+
+          <button
+            className="buttonStyle w-40 text-white cursor-pointer"
+            onClick={onSignupClick}
+          >
             Signup
           </button>
         </div>
@@ -28,16 +35,13 @@ const Header = ({ onLoginClick, onSignupClick, onProfileClick }) => {
         <div className="relative">
           <button
             onClick={() => setOpen(!open)}
-            className="text-white w-40 buttonStyle cursor-pointer"
+            className="buttonStyle w-40"
           >
-            <span className="font-medium">
-              {user.name || "Profile"}
-            </span>
-            <span className="text-sm"> ▼</span>
+            {user.name || "Profile"} ▽
           </button>
 
           {open && (
-            <div className="absolute right-0 mt-2 w-40 bg-bgColor text-white border border-borderColor2 rounded-md shadow-lg">
+            <div className="absolute right-0 mt-2 w-40 bg-bgColor border border-borderColor2 rounded-md">
               {PROFILE_MENU.map((item) => (
                 <button
                   key={item.id}
@@ -46,7 +50,7 @@ const Header = ({ onLoginClick, onSignupClick, onProfileClick }) => {
                     if (item.label === "Logout") handleLogout();
                     if (item.label === "Profile") onProfileClick();
                   }}
-                  className="w-full text-left px-4 py-2 hover:bg-inputColor cursor-pointer"
+                  className="w-full text-left px-4 py-2 hover:bg-inputColor"
                 >
                   {item.label}
                 </button>
@@ -59,4 +63,4 @@ const Header = ({ onLoginClick, onSignupClick, onProfileClick }) => {
   );
 };
 
-export default Header;
+export default Header

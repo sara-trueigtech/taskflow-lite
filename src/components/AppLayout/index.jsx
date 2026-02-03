@@ -3,17 +3,25 @@ import Header from '../Header/component'
 import { Outlet } from 'react-router-dom'
 
 const AppLayout = () => {
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openSignup, setOpenSignup] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false);
+  const [openAuth, setOpenAuth] = useState(false);
+  const [authMode, setAuthMode] = useState("login");
 
   return (
     <>
-      <Header onLoginClick={() => setOpenLogin(true)} onSignupClick={() => setOpenSignup(true)} onProfileClick={() => setOpenProfile(true)} />
+      <Header
+        onLoginClick={() => {
+          setAuthMode("login");
+          setOpenAuth(true);
+        }}
+        onSignupClick={() => {
+          setAuthMode("signup");
+          setOpenAuth(true);
+        }}
+      />
 
-      <Outlet context={{ openLogin, setOpenLogin, openSignup, setOpenSignup, openProfile, setOpenProfile }} />
+      <Outlet context={{ openAuth, setOpenAuth, authMode }} />
     </>
   );
-}
+};
 
 export default AppLayout

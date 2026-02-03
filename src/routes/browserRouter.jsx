@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Dashboard from "../components/Dashboard/component";
-import Login from "../components/Login/component";
 import AuthProvider from "../context/AuthProvider";
 import ErrorPage from "../common/commonErrorPage";
-import Signup from "../components/Signup/component";
 import AppLayout from "../components/AppLayout";
 import Home from "../components/Home";
 
