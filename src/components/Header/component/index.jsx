@@ -35,13 +35,13 @@ const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}, onProfileCl
         <div className="relative">
           <button
             onClick={() => setOpen(!open)}
-            className="buttonStyle w-40"
+            className="buttonStyle w-40 text-white cursor-pointer"
           >
             {user.name || "Profile"} ▽
           </button>
 
           {open && (
-            <div className="absolute right-0 mt-2 w-40 bg-bgColor border border-borderColor2 rounded-md">
+            <div className="absolute right-0 mt-2 w-40 bg-bgColor border border-borderColor2 rounded-md text-white">
               {PROFILE_MENU.map((item) => (
                 <button
                   key={item.id}
@@ -50,7 +50,7 @@ const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}, onProfileCl
                     if (item.label === "Logout") handleLogout();
                     if (item.label === "Profile") onProfileClick();
                   }}
-                  className="w-full text-left px-4 py-2 hover:bg-inputColor"
+                  className="w-full text-left px-4 py-2 hover:bg-inputColor cursor-pointer"
                 >
                   {item.label}
                 </button>

@@ -2,7 +2,7 @@ import React from "react";
 import CommonFormController from "../../../../../common/commonFormController";
 import useTaskForm from "../../../hooks/useTaskForm";
 
-const TaskForm = ({ onSubmit, curTask, controls, onCancel, open }) => {
+const TaskForm = ({ onSubmit, curTask, controls, onCancel, open}) => {
   const { dialogRef, control, handleSubmit, cancelHandler, isSubmitting } =
     useTaskForm({ curTask, onSubmit, onCancel, open });
 
@@ -10,43 +10,31 @@ const TaskForm = ({ onSubmit, curTask, controls, onCancel, open }) => {
     <dialog
       ref={dialogRef}
       onCancel={cancelHandler}
-      style={{
-        border: "none",
-        borderRadius: "12px",
-        padding: "0",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
-        margin: "auto",
+      onClick={(e) => {
+        if(e.target === dialogRef.current){
+          onCancel();
+        }
       }}
+      className="backdrop:bg-black/60 rounded-xl p-0 m-auto "
     >
+      <div className="w-[40rem] bg-bgColor p-5 flex flex-col items-center">
       <form
         onSubmit={handleSubmit}
-        style={{
-          width: "420px",
-          padding: "24px",
-          backgroundColor: "#fff",
-          display: "flex",
-          flexDirection: "column",
-          gap: "14px",
-        }}
+        className="p-[3rem] rounded-xl w-full flex flex-col"
       >
-        <h3 style={{ textAlign: "center" }}>
+        <h3 className="text-center text-2xl font-bold text-white">
           {curTask ? "Update Task" : "Add New Task"}
         </h3>
 
-        <CommonFormController controls={controls} control={control} />
+        <div className="flex flex-col gap-3">
+          <CommonFormController controls={controls} control={control} />
+        </div>
 
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="flex gap-2.5 items-center justify-center">
           <button
             type="submit"
             disabled={isSubmitting}
-            style={{
-              flex: 1,
-              padding: "10px",
-              backgroundColor: "#2563eb",
-              color: "#fff",
-              borderRadius: "6px",
-              border: "none",
-            }}
+            className="roundButtonStyle text-white mt-10"
           >
             {isSubmitting ? "Saving..." : curTask ? "Update Task" : "Add Task"}
           </button>
@@ -54,19 +42,13 @@ const TaskForm = ({ onSubmit, curTask, controls, onCancel, open }) => {
           <button
             type="button"
             onClick={cancelHandler}
-            style={{
-              flex: 1,
-              padding: "10px",
-              backgroundColor: "#fef2f2",
-              color: "#dc2626",
-              border: "1px solid #dc2626",
-              borderRadius: "6px",
-            }}
+            className="roundButtonStyle mt-10"
           >
             Cancel
           </button>
         </div>
       </form>
+      </div>
     </dialog>
   );
 };

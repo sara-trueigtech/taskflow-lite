@@ -33,6 +33,7 @@ const useTaskActions = ({ addTask, editTask }) => {
   return {
     curTask,
     showForm,
+    setShowForm,
     submitTask,
     cancelTask,
     openCreate,

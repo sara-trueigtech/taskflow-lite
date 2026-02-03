@@ -4,9 +4,9 @@ import CommonFormController from "../../../common/commonFormController";
 import image from "../../../assets/image.png";
 import { useAuth } from "../Hooks/useAuth";
 
-const AuthModal = ({ open = "false", onClose = () => {}, defaultMode = "login" }) => {
+const AuthModal = ({ open, onClose = () => {}, mode, modeToggle }) => {
   const dialogRef = useRef(null);
-  const [mode, setMode] = useState(defaultMode);
+  // const [mode, setMode] = useState(defaultMode);
 
   const { control, handleSubmit } = useForm();
   const { handleAuth, loading, controls } = useAuth(mode, onClose);
@@ -19,7 +19,11 @@ const AuthModal = ({ open = "false", onClose = () => {}, defaultMode = "login" }
     <dialog
       ref={dialogRef}
       onClose={onClose}
-      onClick={(e) => e.target === dialogRef.current && onClose()}
+      onClick={(e) => {
+        if(e.target === dialogRef.current){
+        onClose()
+      }
+    }}
       className="backdrop:bg-black/60 rounded-xl p-0 m-auto"
     >
       <div className="max-w-380 max-h-184 bg-bgColor rounded-xl flex border border-borderColor overflow-hidden">
@@ -75,10 +79,9 @@ const AuthModal = ({ open = "false", onClose = () => {}, defaultMode = "login" }
             <p className="text-center text-sm mt-4">
               {mode === "login"
                 ? "Don't have an account?"
-                : "Already have an account?"}{" "}
+                : "Already have an account?"}
               <span
-                onClick={() =>
-                  setMode(mode === "login" ? "signup" : "login")
+                onClick={() => modeToggle(mode === "login" ? "signup" : "login")
                 }
                 className="text-linkColor cursor-pointer hover:underline"
               >
