@@ -68,6 +68,19 @@
       "username": "sneha",
       "email": "seha@email.com",
       "password": "123"
+    },
+    {
+      "id": "dea0",
+      "username": "mayur",
+      "email": "m@email.com",
+      "password": "123",
+      "name": "mayur123",
+      "phone": "9876543210",
+      "gender": "",
+      "dob": "2026-01-02",
+      "address": "qwertyuiop",
+      "state": "RJ",
+      "zipcode": "452004"
     }
   ],
   "tasks": [
@@ -112,12 +125,12 @@
       "assignee": "test"
     },
     {
-      "id": "638b",
-      "title": "task test",
-      "status": "todo",
-      "priority": "low",
-      "dueDate": "2026-02-06",
-      "assignee": "test"
+      "id": "3b0b",
+      "title": "mtaskkkss",
+      "status": "done",
+      "priority": "medium",
+      "dueDate": "2026-02-13",
+      "assignee": "sara"
     }
   ]
 }
