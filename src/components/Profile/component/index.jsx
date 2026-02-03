@@ -5,13 +5,24 @@ import { useProfileUpdate } from "../hooks/useProfileUpdate";
 import { AuthContext } from "../../../context/AuthContext";
 import image from "../../../assets/image2.png";
 import { useNavigate } from "react-router-dom";
+import { useProfileOptions } from "../hooks/useProfileOptions";
+import { profileFormController } from "../constant/index";
 
 const Profile = () => {
   const { control, handleSubmit, reset } = useForm();
-  const { handleProfileUpdate, loading, PROFILE_FORM_CONTROLLER } =
+  const { handleProfileUpdate, loading } =
     useProfileUpdate();
   const { user } = useContext(AuthContext);
   const nav = useNavigate()
+
+   const { genderOp, stateOp, zipCodeOp } =
+    useProfileOptions();
+
+  const PROFILE_FORM_CONTROLLER = profileFormController({
+    genderOp,
+    stateOp,
+    zipCodeOp,
+  });
 
   useEffect(() => {
     if (user) {

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { PROFILE_FORM_CONTROLLER } from "../constant";
+// import { PROFILE_FORM_CONTROLLER } from "../constant";
 import { AuthContext } from "../../../context/AuthContext";
 import { updateUser } from "../../../services/patch/index";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +27,6 @@ export const useProfileUpdate = () => {
   return {
     handleProfileUpdate,
     loading,
-    PROFILE_FORM_CONTROLLER,
     user
   };
 };
