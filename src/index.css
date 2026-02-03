@@ -1,6 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #2c0e48 inset;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0.75rem;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+
 body {
   margin: 0px;
   padding: 0px;
@@ -23,19 +37,23 @@ body {
   --color-linkColor: #de9700;
   --color-textColor: #fff;
   --color-btnColor: #420356;
+  --color-yellowBtnColor: #FFBD0B;
 }
 
 @layer components {
   .buttonStyle {
     @apply w-116 h-13 rounded-[0.65rem] bg-btnColor font-semibold text-xl;
   }
+  .roundButtonStyle {
+    @apply w-[12.5rem] h-13 rounded-[2rem] bg-btnColor font-semibold text-base text-yellowBtnColor;
+  }
   .labelStyle {
     @apply text-textColor text-[1rem] mb-[0.5rem];
   }
   .inputStyle {
-    @apply w-full h-[3rem] bg-inputColor rounded-xl border border-textColor opacity-35 font-medium text-[1rem] p-[1rem] focus:outline-none focus:border-borderColor focus:opacity-100 focus:bg-bgColor text-white;
+    @apply w-full h-[3rem] bg-inputColor rounded-xl border border-textColor/35 font-medium text-[1rem] p-[1rem] focus:outline-none focus:border-borderColor focus:opacity-100 focus:bg-bgColor text-white;
   }
   .selectStyle {
-    @apply min-w-[10rem] h-[3rem] bg-inputColor rounded-xl border border-borderColor2 px-4 text-white font-medium opacity-35 cursor-pointer focus:outline-none focus:border-borderColor focus:opacity-100 focus:bg-bgColor;
+    @apply min-w-[10rem] h-[3rem] bg-inputColor rounded-xl border border-borderColor2/35 px-4 text-white font-medium cursor-pointer focus:outline-none focus:border-borderColor focus:opacity-100 focus:bg-bgColor;
   }
 }

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import CommonFormController from "../../../common/commonFormController";
 import { useProfileUpdate } from "../hooks/useProfileUpdate";
 import { AuthContext } from "../../../context/AuthContext";
+import image from "../../../assets/image2.png";
 
 const Profile = ({ open = false, onClose = () => {} }) => {
   const { control, handleSubmit, reset } = useForm();
@@ -45,43 +46,42 @@ const Profile = ({ open = false, onClose = () => {} }) => {
             onClose();
           }
         }}
-        style={{
-          border: "none",
-          borderRadius: "12px",
-          padding: "0",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
-          margin: "auto",
-        }}
+        className="backdrop:bg-black/60 rounded-xl p-0 m-auto "
       >
-        <div style={{ padding: "24px" }}>
+        <div className="w-[80rem] bg-bgColor p-5 flex flex-col items-center">
+          <h2 className="text-[1.5rem] font-bold text-white mb-2">
+            Personal Information
+          </h2>
+{/* 
+          <img
+            src={image}
+            alt="Profile"
+            className="w-24 h-24 rounded-full object-cover mb-4"
+          /> */}
+
+          {user.name && (
+            <p className="text-white font-bold text-3xl mb-[0.05rem]">
+              {user.name}
+            </p>
+          )}
+          {user.username && (
+            <p className="text-white text-lg mb-6">UserID: {user.username}</p>
+          )}
           <form
             onSubmit={handleSubmit(handleProfileUpdate)}
-            style={{
-              width: "340px",
-              padding: "24px",
-              background: "#f0f3ff",
-              borderRadius: "10px",
-            }}
+            className="p-[3rem] rounded-xl w-full flex flex-col"
           >
-            <CommonFormController
-              controls={PROFILE_FORM_CONTROLLER}
-              control={control}
-            />
+            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+              <CommonFormController
+                controls={PROFILE_FORM_CONTROLLER}
+                control={control}
+              />
+            </div>
 
             <button
               type="submit"
               disabled={loading}
-              style={{
-                width: "100%",
-                padding: "10px",
-                marginTop: "16px",
-                background: loading ? "#86efac" : "#16a34a",
-                color: "#fff",
-                border: "none",
-                borderRadius: "6px",
-                cursor: loading ? "not-allowed" : "pointer",
-                fontWeight: "500",
-              }}
+              className="roundButtonStyle mt-8 self-center"
             >
               {loading ? "updating..." : "Update"}
             </button>
