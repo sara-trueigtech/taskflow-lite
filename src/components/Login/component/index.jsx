@@ -58,11 +58,6 @@ const AuthModal = () => {
                 <CommonFormController controls={controls} control={control} />
               </div>
 
-              {authMode === "signup" && (
-                <p className="mt-6 text-sm">
-                  I confirm that I am 18 years or older.
-                </p>
-              )}
 
               <button
                 type="submit"

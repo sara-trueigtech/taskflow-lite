@@ -31,7 +31,7 @@ const Profile = () => {
 
   return (
     <>
-        <div className="w-full bg-bgColor p-5 flex flex-col items-center">
+        <div className="bg-bgColor p-5 flex flex-col items-center">
           <h2 className="text-[1.5rem] font-bold text-white mb-2">
             Personal Information
           </h2>

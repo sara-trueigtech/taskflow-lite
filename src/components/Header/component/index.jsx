@@ -45,7 +45,7 @@ const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}}) => {
             <div className="absolute right-0 mt-2 w-40 bg-bgColor border border-borderColor2 rounded-md text-white">
               {PROFILE_MENU.map((item) => (
                 <button
-                  key={item.id}
+                  key={item?.id}
                   onClick={() => {
                     setOpen(false);
                     if (item.label === "Logout") handleLogout();
