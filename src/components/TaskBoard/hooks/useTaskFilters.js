@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const useTaskFilters = (tasks = []) => {
   const [filters, setFilters] = useState({
@@ -6,11 +6,21 @@ const useTaskFilters = (tasks = []) => {
     priority: "all",
   });
 
+  const [debounceSearch, setDebounceSearch] = useState(filters.search);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebounceSearch(filters.search);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [filters.search]);
+
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
       const matchSearch = task.title
         .toLowerCase()
-        .includes(filters.search.toLowerCase());
+        .includes(debounceSearch.toLowerCase());
 
       const matchPriority =
         filters.priority === "all" ||
@@ -18,7 +28,7 @@ const useTaskFilters = (tasks = []) => {
 
       return matchSearch && matchPriority;
     });
-  }, [tasks, filters]);
+  }, [tasks, debounceSearch, filters.priority]);
 
   return {
     filters,

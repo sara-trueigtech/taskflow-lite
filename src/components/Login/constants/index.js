@@ -42,5 +42,11 @@ export const SIGNUP_FORM_CONTROLLER = [
     label: "Password",
     isRequired: "Password is required",
   },
+  {
+    name: "isAdult",
+    type: "checkbox",
+    label: "I confirm that I am 18 years or older",
+    isRequired: "required",
+  },
 ];
 

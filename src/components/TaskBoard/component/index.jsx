@@ -83,7 +83,7 @@ const TaskBoard = () => {
     ));
 
   return (
-    <div className="p-5 bg-bgColor min-h-screen">
+    <div className="p-5 bg-bgColor">
       <button
         onClick={openCreate}
         className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium"

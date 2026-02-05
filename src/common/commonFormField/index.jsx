@@ -1,7 +1,12 @@
+import Checkbox from "../commonCheckbox";
 import Input from "../commonInput";
 import Select from "../commonSelect";
 
 const FormField = ({ field, config, error}) => {
+  // const form={
+  //   input:Input,
+
+  // }
   const {
     type,
     options,
@@ -35,24 +40,28 @@ const FormField = ({ field, config, error}) => {
             style={style}
           />
         );
+      case "checkbox":
+        return <Checkbox field={field} label={label} />;
 
       default:
         return null;
     }
   };
-
+// const Comp=form[type]
   return (
     <div >
       <div className="flex flex-col">
-        {label && (
-        <label
-          htmlFor={field.name}
-          className="labelStyle"
-        >
-          {label}
-        </label>
+      {type !== "checkbox" && label && (
+        <label className="labelStyle">{label}</label>
       )}
+
         {renderField()}
+        {/* <Comp  field={field}
+            style={style}
+            inputType={inputType}
+            placeholder={placeholder}
+            disablePast={disablePast}
+            disableTyping={disableTyping} /> */}
 
         {error && (
           <p className="text-red-400 text-sm h-[1.25rem]">{error.message}</p>
