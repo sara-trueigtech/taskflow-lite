@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { PROFILE_MENU } from "../constant";
-import useLogout from "../hooks/useLogout";
+import useLogout from "../../Logout/hooks/useLogout";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}}) => {
-  const { user } = useContext(AuthContext);
+  const { user, setShowLogout } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
-  const { handleLogout } = useLogout();
+  // const { handleLogout } = useLogout();
   const nav = useNavigate();
 
   return (
@@ -48,7 +48,7 @@ const Header = ({ onLoginClick = () => {}, onSignupClick = () => {}}) => {
                   key={item.id}
                   onClick={() => {
                     setOpen(false);
-                    if (item.label === "Logout") handleLogout();
+                    if (item.label === "Logout") setShowLogout(true);
                     if (item.label === "Profile") nav("/profile");
                   }}
                   className="w-full text-left px-4 py-2 hover:bg-inputColor cursor-pointer"

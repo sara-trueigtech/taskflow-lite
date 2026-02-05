@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 import useTasks from "../hooks/useTasks";
 import useUpdateTask from "../hooks/useUpdateTask";
@@ -9,6 +9,8 @@ import useTaskDragDrop from "../hooks/useDragDrop";
 import useDeleteTask from "../hooks/useDelete";
 import TaskSearchFilter from "./TaskSearchFilter";
 import TaskForm from "./TaskForm/component";
+import { AuthContext } from "../../../context/AuthContext";
+import Logout from "../../Logout/component";
 
 const TaskBoard = () => {
 
@@ -16,6 +18,7 @@ const TaskBoard = () => {
   const { editTask } = useUpdateTask(setTasks);
   const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
   const { removeTask } = useDeleteTask(setTasks);
+  const { showLogout, setShowLogout } = useContext(AuthContext);
 
   const { filteredTasks, setFilters } = useTaskFilters(tasks);
 
@@ -98,6 +101,12 @@ const TaskBoard = () => {
           onSubmit={submitTask}
           onCancel={cancelTask}
         />
+      )}
+
+      {showLogout && (
+        <Logout open={showLogout}
+        onClose={() => setShowLogout(false)
+        }/>
       )}
 
       <div className="flex gap-4 mt-6">

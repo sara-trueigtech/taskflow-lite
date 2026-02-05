@@ -10,6 +10,8 @@ const AuthProvider = ({ children }) => {
   const [openAuth, setOpenAuth] = useState(false);
   const [authMode, setAuthMode] = useState("");
 
+  const [showLogout, setShowLogout] = useState(false);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
@@ -65,10 +67,12 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  if (loading) return null; 
+  if (loading) return null;  
+
+  const values = { user, updateUserCtx, login, logout, signup, openAuth, setOpenAuth, authMode, setAuthMode, showLogout, setShowLogout };
 
   return (
-    <AuthContext.Provider value={{ user, updateUserCtx, login, logout, signup, openAuth, setOpenAuth, authMode, setAuthMode }}>
+    <AuthContext.Provider value={values}>
       {children}
     </AuthContext.Provider>
   );
