@@ -67,14 +67,14 @@ const TaskBoard = () => {
         <div className="flex flex-col gap-2 mt-3 w-24">
           <button
             onClick={() => openEdit(t)}
-            className="buttonStyle w-30 h-12 text-white py-1.5 text-[1.12rem] border border-borderColor2"
+            className="buttonStyle text-white py-1.5 text-[0.9rem] md:text-[1.12rem] border border-borderColor2"
           >
             Update
           </button>
 
           <button
             onClick={() => removeTask(t.id)}
-            className="buttonStyle w-30 h-12 text-white py-1.5 text-[1.12rem] border border-borderColor2"
+            className="buttonStyle text-white py-1.5 text-[0.9rem] md:text-[1.12rem] border border-borderColor2"
           >
             Delete
           </button>
@@ -83,10 +83,10 @@ const TaskBoard = () => {
     ));
 
   return (
-    <div className="p-5 bg-bgColor">
+    <div className="p-5 bg-bgColor min-h-screen">
       <button
         onClick={openCreate}
-        className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium"
+        className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium flex items-center justify-center"
       >
         + Add Task
       </button>
@@ -109,13 +109,13 @@ const TaskBoard = () => {
         }/>
       )}
 
-      <div className="flex gap-4 mt-6">
+      <div className="flex flex-col sm:flex-row gap-10 mt-6">
         {columns.map((col) => (
           <div
             key={col.status}
             onDragOver={allowDrop}
             onDrop={(e) => handleDrop(e, col.status)}
-            className="flex-1 bg-bgColor4 p-4 rounded-xl min-h-[400px]"
+            className="flex-1 bg-bgColor4 p-4 rounded-xl h-full"
           >
             <h3 className="text-center text-2xl font-bold text-gray-800 mb-3">
               {col.title}

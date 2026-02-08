@@ -32,12 +32,12 @@ const AuthModal = () => {
       }}
       className="backdrop:bg-black/60 rounded-xl p-0 m-auto"
     >
-      <div className="max-w-380 max-h-184 bg-bgColor rounded-xl flex border border-borderColor overflow-hidden">
-        <div className="w-1/2">
+      <div className="w-[90vw] max-w-6xl max-h-[90vh] bg-bgColor rounded-xl flex flex-col md:flex-row border border-borderColor overflow-hidden">
+        <div className="hidden md:block md:w-1/2">
           <img src={image} className="h-full object-cover" />
         </div>
 
-        <div className="w-1/2 flex items-center justify-center text-white">
+        <div className="w-full p-8 md:w-1/2 flex items-center justify-center text-white overflow-hidden ">
           <div className="w-[28rem] h-[38rem] flex flex-col justify-center">
             <h2 className="font-semibold text-[1.72rem] mb-10 text-center">
               {authMode === "login" ? "Login" : "Sign Up"}

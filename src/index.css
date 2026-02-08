@@ -42,7 +42,7 @@ body {
 
 @layer components {
   .buttonStyle {
-    @apply w-116 h-13 rounded-[0.65rem] bg-btnColor font-semibold text-xl cursor-pointer hover:bg-bgColor3 text-white;
+    @apply w-full sm:w-auto min-w-[6rem] h-[2rem] sm:h-[3rem] rounded-[0.65rem] bg-btnColor font-semibold text-sm sm:text-base md:text-xl cursor-pointer hover:bg-bgColor3 text-white px-4;
   }
   .roundButtonStyle {
     @apply w-[12.5rem] h-13 rounded-[2rem] bg-btnColor font-semibold text-base text-yellowBtnColor cursor-pointer hover:bg-bgColor3;

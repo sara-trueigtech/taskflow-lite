@@ -31,7 +31,7 @@ const Profile = () => {
 
   return (
     <>
-        <div className="bg-bgColor p-5 flex flex-col items-center">
+        <div className="bg-bgColor p-5 flex flex-col items-center min-h-screen overflow-hidden">
           <h2 className="text-[1.5rem] font-bold text-white mb-2">
             Personal Information
           </h2>
@@ -54,7 +54,7 @@ const Profile = () => {
             onSubmit={handleSubmit(handleProfileUpdate)}
             className="p-[3rem] rounded-xl w-full flex flex-col"
           >
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
               <CommonFormController
                 controls={PROFILE_FORM_CONTROLLER}
                 control={control}
