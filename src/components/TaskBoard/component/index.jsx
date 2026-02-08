@@ -11,9 +11,9 @@ import TaskSearchFilter from "./TaskSearchFilter";
 import TaskForm from "./TaskForm/component";
 import { AuthContext } from "../../../context/AuthContext";
 import Logout from "../../Logout/component";
+import TaskCard from "./TaskCard";
 
 const TaskBoard = () => {
-
   const { tasks, setTasks } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
   const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
@@ -22,14 +22,8 @@ const TaskBoard = () => {
 
   const { filteredTasks, setFilters } = useTaskFilters(tasks);
 
-  const {
-    curTask,
-    showForm,
-    submitTask,
-    cancelTask,
-    openCreate,
-    openEdit,
-  } = useTaskActions({ addTask, editTask });
+  const { curTask, showForm, submitTask, cancelTask, openCreate, openEdit } =
+    useTaskActions({ addTask, editTask });
 
   const { allowDrop, handleDrop } = useTaskDragDrop({
     tasks,
@@ -43,43 +37,13 @@ const TaskBoard = () => {
   ];
 
   const renderTasks = (list) =>
-    list.map((t) => (
-      <div
-        key={t.id}
-        draggable
-        onDragStart={(e) => e.dataTransfer.setData("taskId", t.id)}
-        className="bg-bgColor3 p-3 mb-3 rounded-lg shadow-sm cursor-grab active:cursor-grabbing"
-      >
-        <h4 className="text-white font-bold text-xl mb-1">
-          {t.title}
-        </h4>
-
-        <p className="text-sm text-white">
-          Priority: <b>{t.priority}</b>
-        </p>
-        <p className="text-sm text-white">
-          Due Date: <b>{t.dueDate}</b>
-        </p>
-        <p className="text-sm text-white">
-          Assignee: <b>{t.assignee}</b>
-        </p>
-
-        <div className="flex flex-col gap-2 mt-3 w-24">
-          <button
-            onClick={() => openEdit(t)}
-            className="buttonStyle text-white py-1.5 text-[0.9rem] md:text-[1.12rem] border border-borderColor2"
-          >
-            Update
-          </button>
-
-          <button
-            onClick={() => removeTask(t.id)}
-            className="buttonStyle text-white py-1.5 text-[0.9rem] md:text-[1.12rem] border border-borderColor2"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
+    list.map((task) => (
+      <TaskCard
+        key={task.id}
+        task={task}
+        openEdit={openEdit}
+        removeTask={removeTask}
+      />
     ));
 
   return (
@@ -104,9 +68,7 @@ const TaskBoard = () => {
       )}
 
       {showLogout && (
-        <Logout open={showLogout}
-        onClose={() => setShowLogout(false)
-        }/>
+        <Logout open={showLogout} onClose={() => setShowLogout(false)} />
       )}
 
       <div className="flex flex-col sm:flex-row gap-10 mt-6">
@@ -121,11 +83,7 @@ const TaskBoard = () => {
               {col.title}
             </h3>
 
-            {renderTasks(
-              filteredTasks.filter(
-                (t) => t.status === col.status
-              )
-            )}
+            {renderTasks(filteredTasks.filter((t) => t.status === col.status))}
           </div>
         ))}
       </div>
