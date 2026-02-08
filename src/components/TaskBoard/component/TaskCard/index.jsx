@@ -1,13 +1,19 @@
-const TaskCard = ({ task, openEdit, removeTask }) => {
+import Checkbox from "../../../../common/commonCheckbox";
+
+const TaskCard = ({ task, openEdit, removeTask, selected, toggleSelect }) => {
+    const checkboxField = {
+    value: selected,
+    onChange: () => toggleSelect(task.id),
+  }
+
   return (
     <div
       draggable
       onDragStart={(e) => e.dataTransfer.setData("taskId", task.id)}
-      className="bg-bgColor3 p-3 mb-3 rounded-lg shadow-sm cursor-grab active:cursor-grabbing"
+      className={`bg-bgColor3 p-3 mb-3 rounded-lg shadow-sm cursor-grab active:cursor-grabbing ${selected ? "border border-borderColor" : ""}`}
     >
-      <h4 className="text-white font-bold text-xl mb-1">
-        {task.title}
-      </h4>
+      <Checkbox field={checkboxField} label="" />
+      <h4 className="text-white font-bold text-xl mb-1">{task.title}</h4>
 
       <p className="text-sm text-white">
         Priority: <b>{task.priority}</b>

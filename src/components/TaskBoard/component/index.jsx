@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import useTasks from "../hooks/useTasks";
 import useUpdateTask from "../hooks/useUpdateTask";
@@ -12,6 +12,7 @@ import TaskForm from "./TaskForm/component";
 import { AuthContext } from "../../../context/AuthContext";
 import Logout from "../../Logout/component";
 import TaskCard from "./TaskCard";
+import useBulkActions from "../hooks/useBulkActions";
 
 const TaskBoard = () => {
   const { tasks, setTasks } = useTasks();
@@ -30,6 +31,8 @@ const TaskBoard = () => {
     editTask,
   });
 
+  const {toggleSelect, bulkChangePriority, bulkDelete, selected} = useBulkActions({setTasks});
+
   const columns = [
     { title: "Todo", status: "todo" },
     { title: "In Progress", status: "in-progress" },
@@ -43,11 +46,43 @@ const TaskBoard = () => {
         task={task}
         openEdit={openEdit}
         removeTask={removeTask}
+        selected={selected?.includes(task.id)}
+        toggleSelect={toggleSelect}
       />
     ));
 
   return (
     <div className="p-5 bg-bgColor min-h-screen">
+      <div className="flex gap-2 mb-4 flex-wrap text-white">
+        <button
+          disabled={!selected?.length}
+          onClick={() => bulkChangePriority("low")}
+          className="roundButtonStyle"
+        >
+          low
+        </button>
+        <button
+          disabled={!selected?.length}
+          onClick={() => bulkChangePriority("medium")}
+          className="roundButtonStyle"
+        >
+          Medium
+        </button>
+        <button
+          disabled={!selected?.length}
+          onClick={() => bulkChangePriority("high")}
+          className="roundButtonStyle"
+        >
+          High
+        </button>
+        <button
+          disabled={!selected?.length}
+          onClick={bulkDelete}
+          className="roundButtonStyle"
+        >
+          Delete the selected
+        </button>
+      </div>
       <button
         onClick={openCreate}
         className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium flex items-center justify-center"
