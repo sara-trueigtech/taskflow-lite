@@ -6,7 +6,7 @@ import useCreateTask from "../hooks/useCreateTask";
 import useTaskFilters from "../hooks/useTaskFilters";
 import useTaskActions from "../hooks/useTaskAction";
 import useTaskDragDrop from "../hooks/useDragDrop";
-import useDeleteTask from "../hooks/useDelete";
+import useDeleteTask from "../hooks/useDelete.jsx";
 import TaskSearchFilter from "./TaskSearchFilter";
 import TaskForm from "./TaskForm/component";
 import { AuthContext } from "../../../context/AuthContext";
