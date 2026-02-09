@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import toast from "react-hot-toast";
 import { deleteTask } from "../../../services/delete";
+import showToast from "../../../common/commonToaster";
 
 const useBulkActions = ({ setTasks }) => {
   const [selected, setSelected] = useState([]);
@@ -8,13 +8,13 @@ const useBulkActions = ({ setTasks }) => {
 
   const toggleSelect = (id) => {
     setSelected((prev) =>
-      prev.includes(id) ? prev.filter((tid) => tid !== id) : [...prev, id],
+      prev.includes(id) ? prev.filter((tid) => tid !== id) : [...prev, id]
     );
   };
 
   const bulkChangePriority = (priority) => {
     setTasks((prev) =>
-      prev.map((t) => (selected.includes(t.id) ? { ...t, priority } : t)),
+      prev.map((t) => (selected.includes(t.id) ? { ...t, priority } : t))
     );
     setSelected([]);
   };
@@ -27,32 +27,25 @@ const useBulkActions = ({ setTasks }) => {
       return prev.filter((t) => !selected.includes(t.id));
     });
 
-    toast(
-      (t) => (
-        <span>
-          {deletedTasks.length} tasks deleted
-          <button
-            onClick={() => {
-              setTasks((prev) => [...prev, ...deletedTasks]);
-              toast.dismiss(t.id);
-              clearTimeout(undoRef.current);
-            }}
-            className="ml-2 text-borderColor"
-          >
-            undo
-          </button>
-        </span>
-      ),
-      { duration: 5000 },
-    );
+    showToast({
+      message: `${selected.length} tasks deleted`,
 
-    undoRef.current = setTimeout(async () => {
-      try {
-        await Promise.all(deletedTasks.map((task) => deleteTask(task.id)));
-      } catch (err) {
-        console.error(err);
-      }
-    }, 5000);
+      onUndo: () => {
+        setTasks((prev) => [...prev, ...deletedTasks]);
+      },
+
+      onConfirm: async () => {
+        try {
+          await Promise.all(
+            deletedTasks.map((task) => deleteTask(task.id))
+          );
+        } catch (err) {
+          console.error(err);
+        }
+      },
+
+      undoRef,
+    });
 
     setSelected([]);
   };
@@ -65,4 +58,5 @@ const useBulkActions = ({ setTasks }) => {
     setSelected,
   };
 };
+
 export default useBulkActions;
