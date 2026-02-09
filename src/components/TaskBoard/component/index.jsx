@@ -12,7 +12,7 @@ import TaskForm from "./TaskForm/component";
 import { AuthContext } from "../../../context/AuthContext";
 import Logout from "../../Logout/component";
 import TaskCard from "./TaskCard";
-import useBulkActions from "../hooks/useBulkActions";
+import useBulkActions from "../hooks/useBulkActions.jsx";
 import useOnlineStatus from "../../Network/hooks/useOnlineStatus.js";
 import OfflineBanner from "../../Network/components/OfflineBanner/index.jsx";
 import ErrorBox from "../../Network/components/ErrorBox/index.jsx";
