@@ -1,15 +1,34 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { getTasks } from "../../../services/get";
 
-
 const useTasks = () => {
-    const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        getTasks().then(setTasks);
-    }, []);
+  const loadTasks = async () => {
+    setLoading(true);
+    setError(null);
 
-    return {tasks, setTasks};
+    try {
+      if (!navigator.onLine) {
+        throw new Error("offline");
+      }
+
+      const data = await getTasks();
+      setTasks(data);
+    } catch (err) {
+      setError(err.message || "failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  return { tasks, setTasks, error, retry: loadTasks, loading };
 };
 
 export default useTasks;

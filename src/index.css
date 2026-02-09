@@ -38,6 +38,11 @@ body {
   --color-textColor: #fff;
   --color-btnColor: #420356;
   --color-yellowBtnColor: #FFBD0B;
+  --color-error-bg: #fee2e2;
+  --color-error-border: #f87171;
+  --color-error-text: #b91c1c;
+  --color-error-button: #ef4444;
+  --color-error-button-hover: #dc2626;
 }
 
 @layer components {

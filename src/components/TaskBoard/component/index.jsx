@@ -13,9 +13,12 @@ import { AuthContext } from "../../../context/AuthContext";
 import Logout from "../../Logout/component";
 import TaskCard from "./TaskCard";
 import useBulkActions from "../hooks/useBulkActions";
+import useOnlineStatus from "../../Network/hooks/useOnlineStatus.js";
+import OfflineBanner from "../../Network/components/OfflineBanner/index.jsx";
+import ErrorBox from "../../Network/components/ErrorBox/index.jsx";
 
 const TaskBoard = () => {
-  const { tasks, setTasks } = useTasks();
+  const { tasks, setTasks, error, retry, loading } = useTasks();
   const { editTask } = useUpdateTask(setTasks);
   const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
   const { removeTask } = useDeleteTask(setTasks);
@@ -31,7 +34,10 @@ const TaskBoard = () => {
     editTask,
   });
 
-  const {toggleSelect, bulkChangePriority, bulkDelete, selected} = useBulkActions({setTasks});
+  const { toggleSelect, bulkChangePriority, bulkDelete, selected } =
+    useBulkActions({ setTasks });
+
+  const online = useOnlineStatus();
 
   const columns = [
     { title: "Todo", status: "todo" },
@@ -52,77 +58,94 @@ const TaskBoard = () => {
     ));
 
   return (
-    <div className="p-5 bg-bgColor min-h-screen">
-      <div className="flex gap-2 mb-4 flex-wrap text-white">
-        <button
-          disabled={!selected?.length}
-          onClick={() => bulkChangePriority("low")}
-          className="roundButtonStyle"
-        >
-          low
-        </button>
-        <button
-          disabled={!selected?.length}
-          onClick={() => bulkChangePriority("medium")}
-          className="roundButtonStyle"
-        >
-          Medium
-        </button>
-        <button
-          disabled={!selected?.length}
-          onClick={() => bulkChangePriority("high")}
-          className="roundButtonStyle"
-        >
-          High
-        </button>
-        <button
-          disabled={!selected?.length}
-          onClick={bulkDelete}
-          className="roundButtonStyle"
-        >
-          Delete the selected
-        </button>
-      </div>
-      <button
-        onClick={openCreate}
-        className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium flex items-center justify-center"
-      >
-        + Add Task
-      </button>
+    <>
+      <div className="p-5 bg-bgColor min-h-screen">
+      {/* {!online && <OfflineBanner />} */}
 
-      <TaskSearchFilter onChange={setFilters} />
-
-      {showForm && (
-        <TaskForm
-          open={showForm}
-          curTask={curTask}
-          controls={TASK_FORM_CONTROLLER}
-          onSubmit={submitTask}
-          onCancel={cancelTask}
+      {error && (
+        <ErrorBox
+          message={
+            error === "offline" ? "You are offline" : "Failed to load tasks"
+          }
+          onRetry={retry}
         />
       )}
 
-      {showLogout && (
-        <Logout open={showLogout} onClose={() => setShowLogout(false)} />
-      )}
+      {loading && <p className="text-white mb-4">Loading tasks...</p>}
 
-      <div className="flex flex-col sm:flex-row gap-10 mt-6">
-        {columns.map((col) => (
-          <div
-            key={col.status}
-            onDragOver={allowDrop}
-            onDrop={(e) => handleDrop(e, col.status)}
-            className="flex-1 bg-bgColor4 p-4 rounded-xl h-full"
+        <div className="flex gap-2 mb-4 flex-wrap text-white">
+          <button
+            disabled={!selected?.length}
+            onClick={() => bulkChangePriority("low")}
+            className="roundButtonStyle"
           >
-            <h3 className="text-center text-2xl font-bold text-gray-800 mb-3">
-              {col.title}
-            </h3>
+            low
+          </button>
+          <button
+            disabled={!selected?.length}
+            onClick={() => bulkChangePriority("medium")}
+            className="roundButtonStyle"
+          >
+            Medium
+          </button>
+          <button
+            disabled={!selected?.length}
+            onClick={() => bulkChangePriority("high")}
+            className="roundButtonStyle"
+          >
+            High
+          </button>
+          <button
+            disabled={!selected?.length}
+            onClick={bulkDelete}
+            className="roundButtonStyle"
+          >
+            Delete the selected
+          </button>
+        </div>
+        <button
+          onClick={openCreate}
+          className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium flex items-center justify-center"
+        >
+          + Add Task
+        </button>
 
-            {renderTasks(filteredTasks.filter((t) => t.status === col.status))}
-          </div>
-        ))}
+        <TaskSearchFilter onChange={setFilters} />
+
+        {showForm && (
+          <TaskForm
+            open={showForm}
+            curTask={curTask}
+            controls={TASK_FORM_CONTROLLER}
+            onSubmit={submitTask}
+            onCancel={cancelTask}
+          />
+        )}
+
+        {showLogout && (
+          <Logout open={showLogout} onClose={() => setShowLogout(false)} />
+        )}
+
+        <div className="flex flex-col sm:flex-row gap-10 mt-6">
+          {columns.map((col) => (
+            <div
+              key={col.status}
+              onDragOver={allowDrop}
+              onDrop={(e) => handleDrop(e, col.status)}
+              className="flex-1 bg-bgColor4 p-4 rounded-xl h-full"
+            >
+              <h3 className="text-center text-2xl font-bold text-gray-800 mb-3">
+                {col.title}
+              </h3>
+
+              {renderTasks(
+                filteredTasks.filter((t) => t.status === col.status),
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

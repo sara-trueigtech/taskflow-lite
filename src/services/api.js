@@ -11,7 +11,7 @@ const request = async (url, options = {}, data) => {
 
   if (!res.ok) {
     const errorText = await res.text();
-    throw new Error(errorText || "API Error");
+    throw new Error(errorText || "api error");
   }
 
   return res.json();
