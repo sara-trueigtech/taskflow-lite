@@ -3,7 +3,7 @@ import { AuthContext } from "./AuthContext";
 import {
   useGetUsersQuery,
   useCreateUserMutation,
-} from "../store/services/userApi";
+} from "../store/services/apiSlice";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

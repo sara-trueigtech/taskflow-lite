@@ -1,7 +1,7 @@
 import showToast from "../../../common/commonToaster";
 // import { deleteTask } from "../../../services/delete";
 import { useRef } from "react";
-import { tasksApi, useDeleteTaskMutation } from "../../../store/services/taskApi";
+import { apiSlice, useDeleteTaskMutation } from "../../../store/services/apiSlice";
 import { useDispatch } from "react-redux";
 
 const useDeleteTask = () => {
@@ -17,7 +17,7 @@ const useDeleteTask = () => {
     //   return prev.filter((t) => t.id !== id);
     // });
 
-    const cacheResult = dispatch( tasksApi.util.updateQueryData(
+    const cacheResult = dispatch( apiSlice.util.updateQueryData(
       "getTasks",
       undefined,
       (cache) => {

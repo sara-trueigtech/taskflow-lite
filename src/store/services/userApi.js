@@ -1,35 +1,35 @@
-import { baseApi } from "./baseApi";
+// import { baseApi } from "./baseApi";
 
-export const usersApi = baseApi.injectEndpoints({
-  endpoints: (builder) => ({
-    getUsers: builder.query({
-      query: () => "/users",
-      providesTags: ["Users"],
-    }),
+// export const usersApi = baseApi.injectEndpoints({
+//   endpoints: (builder) => ({
+//     getUsers: builder.query({
+//       query: () => "/users",
+//       providesTags: ["Users"],
+//     }),
 
-    createUser: builder.mutation({
-      query: (user) => ({
-        url: "/users",
-        method: "POST",
-        body: user,
-      }),
-      invalidatesTags: ["Users"],
-    }),
+//     createUser: builder.mutation({
+//       query: (user) => ({
+//         url: "/users",
+//         method: "POST",
+//         body: user,
+//       }),
+//       invalidatesTags: ["Users"],
+//     }),
 
-    updateUser: builder.mutation({
-      query: ({ id, updatedUser }) => ({
-        url: `/users/${id}`,
-        method: "PATCH",
-        body: updatedUser,
-      }),
+//     updateUser: builder.mutation({
+//       query: ({ id, updatedUser }) => ({
+//         url: `/users/${id}`,
+//         method: "PATCH",
+//         body: updatedUser,
+//       }),
 
-      invalidatesTags: ["Users"],
-    }),
-  }),
-});
+//       invalidatesTags: ["Users"],
+//     }),
+//   }),
+// });
 
-export const {
-  useGetUsersQuery,
-  useCreateUserMutation,
-  useUpdateUserMutation
-} = usersApi;
+// export const {
+//   useGetUsersQuery,
+//   useCreateUserMutation,
+//   useUpdateUserMutation
+// } = usersApi;

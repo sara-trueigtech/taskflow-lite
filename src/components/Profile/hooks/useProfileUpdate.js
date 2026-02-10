@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { PROFILE_FORM_CONTROLLER } from "../constant";
 import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useUpdateUserMutation } from "../../../store/services/userApi";
+import { useUpdateUserMutation } from "../../../store/services/apiSlice";
 
 export const useProfileUpdate = () => {
   const { user, updateUserCtx } = useContext(AuthContext);
@@ -14,7 +14,7 @@ export const useProfileUpdate = () => {
     try {
       const updatedUser = await updateUser({
         id: user.id,
-        updatedUser: data,
+        ...data,
       }).unwrap();
 
       updateUserCtx(updatedUser);

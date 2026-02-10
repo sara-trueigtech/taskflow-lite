@@ -2,15 +2,19 @@ const Input = ({
   field = {},
   style = {},
   inputType = "text",
-  placeholder="text",
+  placeholder = "text",
   disablePast = false,
   disableTyping = false,
   ...rest
 }) => {
-  const today = inputType === "date" ? new Date().toISOString().split("T")[0] : undefined;
+  const today =
+    inputType === "date"
+      ? new Date().toISOString().split("T")[0]
+      : undefined;
+
   return (
     <input
-    className="inputStyle"
+      className="inputStyle"
       {...field}
       value={field.value ?? ""}
       style={style}
@@ -18,8 +22,14 @@ const Input = ({
       type={inputType}
       placeholder={placeholder}
       min={disablePast ? today : undefined}
-      disabled={inputType === "date" ? !disableTyping : disableTyping}
+      disabled={inputType !== "date" && disableTyping}
       onKeyDown={
+        disableTyping && inputType === "date"
+          ? (e) => e.preventDefault()
+          : undefined
+      }
+
+      onPaste={
         disableTyping && inputType === "date"
           ? (e) => e.preventDefault()
           : undefined

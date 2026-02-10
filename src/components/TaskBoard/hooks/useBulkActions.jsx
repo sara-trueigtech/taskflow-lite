@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import showToast from "../../../common/commonToaster";
 import {
-  tasksApi,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
-} from "../../../store/services/taskApi";
+  apiSlice,
+} from "../../../store/services/apiSlice";
 import { useDispatch } from "react-redux";
 
 const useBulkActions = () => {
@@ -24,7 +24,7 @@ const useBulkActions = () => {
   const bulkChangePriority = (priority) => {
     selected.forEach((id) => {
       const patchResult = dispatch(
-        tasksApi.util.updateQueryData("getTasks", undefined, (draft) => {
+        apiSlice.util.updateQueryData("getTasks", undefined, (draft) => {
           const task = draft.find((t) => t.id === id);
           if (task) task.priority = priority; 
         }),
@@ -41,7 +41,7 @@ const useBulkActions = () => {
     let deletedTasks = [];
 
     const patchResult = dispatch(
-      tasksApi.util.updateQueryData("getTasks", undefined, (draft) => {
+      apiSlice.util.updateQueryData("getTasks", undefined, (draft) => {
         deletedTasks = draft.filter((t) => selected.includes(t.id));
         deletedTasks.forEach((t) => {
           const index = draft.findIndex((task) => task.id === t.id);

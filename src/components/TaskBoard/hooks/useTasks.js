@@ -33,7 +33,7 @@
 
 // export default useTasks;
 
-import {useGetTasksQuery} from "../../../store/services/taskApi"
+import {useGetTasksQuery} from "../../../store/services/apiSlice"
 
 const useTasks = () => {
   const {

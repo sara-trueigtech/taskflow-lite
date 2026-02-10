@@ -1,4 +1,4 @@
-import { useUpdateTaskMutation } from "../../../store/services/taskApi";
+import { useUpdateTaskMutation } from "../../../store/services/apiSlice";
 
 const useUpdateTask = () => {
   const [updateTask, { isLoading, error }] = useUpdateTaskMutation();

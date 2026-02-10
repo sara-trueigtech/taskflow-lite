@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { debounce } from "../../../common/commonDebounce";
-import { useGetTasksQuery } from "../../../store/services/taskApi";
+import { useGetTasksQuery } from "../../../store/services/apiSlice";
 
 const useTaskFilters = () => {
   const [filters, setFilters] = useState({ search: "", priority: "all" });
