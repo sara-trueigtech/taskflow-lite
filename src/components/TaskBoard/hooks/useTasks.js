@@ -39,14 +39,15 @@ const useTasks = () => {
   const {
     data: tasks = [],
     error,
-    isLoading: loading,
+    isLoading,
+    isFetching,
     refetch,
   } = useGetTasksQuery();
 
   return {
     tasks,
-    error,
-    loading,
+    error: error ? "failed" : null,
+    loading: isLoading || isFetching,
     retry: refetch,
   };
 };

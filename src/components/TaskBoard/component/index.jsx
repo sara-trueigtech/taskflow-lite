@@ -16,6 +16,7 @@ import useBulkActions from "../hooks/useBulkActions.jsx";
 import useOnlineStatus from "../../Network/hooks/useOnlineStatus.js";
 import OfflineBanner from "../../Network/components/OfflineBanner/index.jsx";
 import ErrorBox from "../../Network/components/ErrorBox/index.jsx";
+import TaskColumnSkeleton from "./TaskColumnSkeleton/index.jsx";
 
 const TaskBoard = () => {
   const { tasks, error, retry, loading } = useTasks();
@@ -60,18 +61,15 @@ const TaskBoard = () => {
   return (
     <>
       <div className="p-5 bg-bgColor min-h-screen">
-      {/* {!online && <OfflineBanner />} */}
+        {/* {!online && <OfflineBanner />} */}
 
-      {error && (
-        <ErrorBox
-          message={
-            error === "offline" ? "You are offline" : "Failed to load tasks"
-          }
-          onRetry={retry}
-        />
-      )}
+        {!online && <ErrorBox message="You are offline" onRetry={retry} />}
 
-      {loading && <p className="text-white mb-4">Loading tasks...</p>}
+        {online && error && (
+          <ErrorBox message="Failed to load tasks" onRetry={retry} />
+        )}
+
+        {/* {loading && <p className="text-white mb-4">Loading tasks...</p>} */}
 
         <button
           onClick={openCreate}
@@ -128,22 +126,32 @@ const TaskBoard = () => {
         )}
 
         <div className="flex flex-col sm:flex-row gap-10 mt-6">
-          {columns.map((col) => (
-            <div
-              key={col.status}
-              onDragOver={allowDrop}
-              onDrop={(e) => handleDrop(e, col.status)}
-              className="flex-1 bg-bgColor4 p-4 rounded-xl h-full"
-            >
-              <h3 className="text-center text-2xl font-bold text-gray-800 mb-3">
-                {col.title}
-              </h3>
+          {columns.map((col) => {
+            const columnTasks = filteredTasks.filter(
+              (t) => t.status === col.status,
+            );
 
-              {renderTasks(
-                filteredTasks.filter((t) => t.status === col.status),
-              )}
-            </div>
-          ))}
+            return (
+              <div
+                key={col.status}
+                onDragOver={allowDrop}
+                onDrop={(e) => handleDrop(e, col.status)}
+                className="flex-1 bg-bgColor4 p-4 rounded-xl h-full"
+              >
+                <h3 className="text-center text-2xl font-bold text-gray-800 mb-3">
+                  {col.title}
+                </h3>
+
+                {loading && columnTasks.length === 0 ? (
+                  <TaskColumnSkeleton />
+                ) : columnTasks.length === 0 ? (
+                  <p className="text-center text-gray-400">No tasks</p>
+                ) : (
+                  renderTasks(columnTasks)
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </>
