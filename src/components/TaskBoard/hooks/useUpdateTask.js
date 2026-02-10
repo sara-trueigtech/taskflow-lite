@@ -1,15 +1,21 @@
-import { updateTask } from "../../../services/put";
+import { useUpdateTaskMutation } from "../../../store/services/taskApi";
 
-const useUpdateTask = (setTask) => {
-    const editTask = async(task) => {
-        const updated = await updateTask(task.id, task);
+const useUpdateTask = () => {
+  const [updateTask, { isLoading, error }] = useUpdateTaskMutation();
 
-        setTask((p) => {
-            return p.map((t) => (t.id === task.id ? updated : t));
-        });
+  const editTask = async (task) => {
+    try {
+      await updateTask(task).unwrap();
+    } catch (err) {
+      console.error(err);
     }
+  };
 
-    return {editTask};
-}
+  return {
+    editTask,
+    isLoading,
+    error,
+  };
+};
 
 export default useUpdateTask;

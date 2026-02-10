@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { getUsers } from "../services/get";
-import { createUser } from "../services/post";
+import {
+  useGetUsersQuery,
+  useCreateUserMutation,
+} from "../store/services/userApi";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -9,8 +11,10 @@ const AuthProvider = ({ children }) => {
 
   const [openAuth, setOpenAuth] = useState(false);
   const [authMode, setAuthMode] = useState("");
-
   const [showLogout, setShowLogout] = useState(false);
+
+  const { data: users = [] } = useGetUsersQuery();
+  const [createUser] = useCreateUserMutation();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,15 +33,14 @@ const AuthProvider = ({ children }) => {
   };
 
   const signup = async (data) => {
-    const users = await getUsers();
-
     const exists = users.find((u) => u.email === data.email);
+
     if (exists) {
       alert("User already exists");
       throw new Error("User already exists");
     }
 
-    const newUser = await createUser(data);
+    const newUser = await createUser(data).unwrap();
 
     localStorage.setItem("token", "dummy-token");
     localStorage.setItem("user", JSON.stringify(newUser));
@@ -45,8 +48,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const login = async (data) => {
-    const users = await getUsers();
-
     const exists = users.find(
       (u) => u.email === data.email && u.password === data.password
     );
@@ -67,9 +68,21 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  if (loading) return null;  
+  if (loading) return null;
 
-  const values = { user, updateUserCtx, login, logout, signup, openAuth, setOpenAuth, authMode, setAuthMode, showLogout, setShowLogout };
+  const values = {
+    user,
+    updateUserCtx,
+    login,
+    logout,
+    signup,
+    openAuth,
+    setOpenAuth,
+    authMode,
+    setAuthMode,
+    showLogout,
+    setShowLogout,
+  };
 
   return (
     <AuthContext.Provider value={values}>

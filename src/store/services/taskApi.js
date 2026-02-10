@@ -24,6 +24,14 @@ export const tasksApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Tasks"],
     }),
+    updateTask: builder.mutation({
+      query: ({ id, ...fields }) => ({
+        url: `/tasks/${id}`,
+        method: "PATCH", 
+        body: fields, 
+      }),
+      invalidatesTags: ["Tasks"], 
+    }),
 
     deleteTask: builder.mutation({
       query: (id) => ({

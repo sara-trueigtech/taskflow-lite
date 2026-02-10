@@ -1,49 +1,67 @@
 import { useRef, useState } from "react";
-import { deleteTask } from "../../../services/delete";
 import showToast from "../../../common/commonToaster";
+import {
+  tasksApi,
+  useUpdateTaskMutation,
+  useDeleteTaskMutation,
+} from "../../../store/services/taskApi";
+import { useDispatch } from "react-redux";
 
-const useBulkActions = ({ setTasks }) => {
+const useBulkActions = () => {
   const [selected, setSelected] = useState([]);
   const undoRef = useRef(null);
+  const dispatch = useDispatch();
+
+  const [updateTask] = useUpdateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
 
   const toggleSelect = (id) => {
     setSelected((prev) =>
-      prev.includes(id) ? prev.filter((tid) => tid !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((tid) => tid !== id) : [...prev, id],
     );
   };
 
   const bulkChangePriority = (priority) => {
-    setTasks((prev) =>
-      prev.map((t) => (selected.includes(t.id) ? { ...t, priority } : t))
-    );
+    selected.forEach((id) => {
+      const patchResult = dispatch(
+        tasksApi.util.updateQueryData("getTasks", undefined, (draft) => {
+          const task = draft.find((t) => t.id === id);
+          if (task) task.priority = priority; 
+        }),
+      );
+
+      updateTask({ id, priority })
+        .unwrap(); 
+    });
+
     setSelected([]);
   };
 
   const bulkDelete = () => {
     let deletedTasks = [];
 
-    setTasks((prev) => {
-      deletedTasks = prev.filter((t) => selected.includes(t.id));
-      return prev.filter((t) => !selected.includes(t.id));
-    });
+    const patchResult = dispatch(
+      tasksApi.util.updateQueryData("getTasks", undefined, (draft) => {
+        deletedTasks = draft.filter((t) => selected.includes(t.id));
+        deletedTasks.forEach((t) => {
+          const index = draft.findIndex((task) => task.id === t.id);
+          if (index !== -1) draft.splice(index, 1);
+        });
+      }),
+    );
 
     showToast({
       message: `${selected.length} tasks deleted`,
-
-      onUndo: () => {
-        setTasks((prev) => [...prev, ...deletedTasks]);
-      },
-
+      onUndo: () => patchResult?.undo?.(),
       onConfirm: async () => {
         try {
           await Promise.all(
-            deletedTasks.map((task) => deleteTask(task.id))
+            deletedTasks.map((task) => deleteTask(task.id).unwrap()),
           );
         } catch (err) {
           console.error(err);
         }
       },
-
       undoRef,
     });
 

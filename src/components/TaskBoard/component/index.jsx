@@ -6,7 +6,7 @@ import useCreateTask from "../hooks/useCreateTask";
 import useTaskFilters from "../hooks/useTaskFilters";
 import useTaskActions from "../hooks/useTaskAction";
 import useTaskDragDrop from "../hooks/useDragDrop";
-import useDeleteTask from "../hooks/useDelete.jsx";
+import useDeleteTask from "../hooks/useDelete";
 import TaskSearchFilter from "./TaskSearchFilter";
 import TaskForm from "./TaskForm/component";
 import { AuthContext } from "../../../context/AuthContext";
@@ -18,13 +18,13 @@ import OfflineBanner from "../../Network/components/OfflineBanner/index.jsx";
 import ErrorBox from "../../Network/components/ErrorBox/index.jsx";
 
 const TaskBoard = () => {
-  const { tasks, setTasks, error, retry, loading } = useTasks();
-  const { editTask } = useUpdateTask(setTasks);
-  const { addTask, TASK_FORM_CONTROLLER } = useCreateTask(setTasks);
-  const { removeTask } = useDeleteTask(setTasks);
+  const { tasks, error, retry, loading } = useTasks();
+  const { editTask } = useUpdateTask();
+  const { addTask, TASK_FORM_CONTROLLER } = useCreateTask();
+  const { removeTask } = useDeleteTask();
   const { showLogout, setShowLogout } = useContext(AuthContext);
 
-  const { filteredTasks, setFilters } = useTaskFilters(tasks);
+  const { filteredTasks, setFilters } = useTaskFilters();
 
   const { curTask, showForm, submitTask, cancelTask, openCreate, openEdit } =
     useTaskActions({ addTask, editTask });
@@ -35,7 +35,7 @@ const TaskBoard = () => {
   });
 
   const { toggleSelect, bulkChangePriority, bulkDelete, selected } =
-    useBulkActions({ setTasks });
+    useBulkActions({});
 
   const online = useOnlineStatus();
 
@@ -73,7 +73,16 @@ const TaskBoard = () => {
 
       {loading && <p className="text-white mb-4">Loading tasks...</p>}
 
-        <div className="flex gap-2 mb-4 flex-wrap text-white">
+        <button
+          onClick={openCreate}
+          className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium flex items-center justify-center"
+        >
+          + Add Task
+        </button>
+
+        <TaskSearchFilter onChange={setFilters} />
+
+        <div className="flex gap-2 mt-4 flex-wrap text-white">
           <button
             disabled={!selected?.length}
             onClick={() => bulkChangePriority("low")}
@@ -103,14 +112,6 @@ const TaskBoard = () => {
             Delete the selected
           </button>
         </div>
-        <button
-          onClick={openCreate}
-          className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium flex items-center justify-center"
-        >
-          + Add Task
-        </button>
-
-        <TaskSearchFilter onChange={setFilters} />
 
         {showForm && (
           <TaskForm
