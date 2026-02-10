@@ -40,6 +40,19 @@ const TaskBoard = () => {
 
   const online = useOnlineStatus();
 
+  const [openCols, setOpenCols] = useState({
+    todo: true,
+    "in-progress": false,
+    done: false,
+  });
+
+  const toggleCol = (status) => {
+    setOpenCols((prev) => ({
+      ...prev,
+      [status]: !prev[status],
+    }));
+  };
+
   const columns = [
     { title: "Todo", status: "todo" },
     { title: "In Progress", status: "in-progress" },
@@ -60,27 +73,23 @@ const TaskBoard = () => {
 
   return (
     <>
-      <div className="p-5 bg-bgColor min-h-screen">
-        {/* {!online && <OfflineBanner />} */}
-
+      <div className="bg-bgColor min-h-screen flex flex-col justify-center p-16">
         {!online && <ErrorBox message="You are offline" onRetry={retry} />}
 
         {online && error && (
           <ErrorBox message="Failed to load tasks" onRetry={retry} />
         )}
 
-        {/* {loading && <p className="text-white mb-4">Loading tasks...</p>} */}
-
         <button
           onClick={openCreate}
-          className="mb-4 px-4 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium flex items-center justify-center"
+          className="mb-4 md:py-2 py-2 buttonStyle border border-borderColor2 text-white rounded-md font-medium flex justify-center self-center md:self-start"
         >
-          + Add Task
+          Add Task
         </button>
 
         <TaskSearchFilter onChange={setFilters} />
 
-        <div className="flex gap-2 mt-4 flex-wrap text-white">
+        <div className="flex items-center justify-center tablet:self-start gap-2 mt-4">
           <button
             disabled={!selected?.length}
             onClick={() => bulkChangePriority("low")}
@@ -125,7 +134,7 @@ const TaskBoard = () => {
           <Logout open={showLogout} onClose={() => setShowLogout(false)} />
         )}
 
-        <div className="flex flex-col sm:flex-row gap-10 mt-6">
+        <div className="flex flex-col tablet:flex-row gap-10 mt-6">
           {columns.map((col) => {
             const columnTasks = filteredTasks.filter(
               (t) => t.status === col.status,
@@ -136,19 +145,29 @@ const TaskBoard = () => {
                 key={col.status}
                 onDragOver={allowDrop}
                 onDrop={(e) => handleDrop(e, col.status)}
-                className="flex-1 bg-bgColor4 p-4 rounded-xl h-full"
+                className="flex-1 bg-bgColor5 p-4 rounded-3xl h-full p-8"
               >
-                <h3 className="text-center text-2xl font-bold text-gray-800 mb-3">
+                <button
+                  onClick={() => toggleCol(col.status)}
+                  className="w-full text-center text-xl md:text-2xl xl:text-3xl border-4 border-gradient rounded-3xl font-medium text-white px-6 md:px-10 xl:px-20 py-4 md:py-5 mb-6 flex items-center justify-center gap-2"
+                >
                   {col.title}
-                </h3>
+                  <span className="tablet:hidden">
+                    {openCols[col.status] ? "▲" : "▼"}
+                  </span>
+                </button>
 
-                {loading && columnTasks.length === 0 ? (
-                  <TaskColumnSkeleton />
-                ) : columnTasks.length === 0 ? (
-                  <p className="text-center text-gray-400">No tasks</p>
-                ) : (
-                  renderTasks(columnTasks)
-                )}
+                <div
+                  className={`${openCols[col.status] ? "block" : "hidden"} tablet:block`}
+                >
+                  {loading && columnTasks.length === 0 ? (
+                    <TaskColumnSkeleton />
+                  ) : columnTasks.length === 0 ? (
+                    <p className="text-center text-gray-400">No tasks</p>
+                  ) : (
+                    renderTasks(columnTasks)
+                  )}
+                </div>
               </div>
             );
           })}

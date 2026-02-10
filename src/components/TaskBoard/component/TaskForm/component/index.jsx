@@ -17,10 +17,10 @@ const TaskForm = ({ onSubmit, curTask, controls, onCancel, open}) => {
       }}
       className="backdrop:bg-black/60 rounded-xl p-0 m-auto "
     >
-      <div className="w-[40rem] bg-bgColor p-5 flex flex-col items-center">
+      <div className="w-[95vw] max-w-[40rem] overflow-hidden bg-bgColor flex flex-col items-center">
       <form
         onSubmit={handleSubmit}
-        className="p-[3rem] rounded-xl w-full flex flex-col"
+        className="md:p-[3rem] p-[2rem] rounded-xl w-full flex flex-col"
       >
         <h3 className="text-center text-2xl font-bold text-white">
           {curTask ? "Update Task" : "Add New Task"}

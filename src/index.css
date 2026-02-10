@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -13,7 +12,6 @@ select:-webkit-autofill {
   border-radius: 0.75rem;
   transition: background-color 9999s ease-in-out 0s;
 }
-
 
 body {
   margin: 0px;
@@ -31,26 +29,30 @@ body {
   --color-bgColor2: #1f0833;
   --color-bgColor3: #604b72;
   --color-bgColor4: #bca9cc;
+  --color-bgColor5: #371650;
   --color-inputColor: #2c0e48;
   --color-borderColor: #e4a02d;
   --color-borderColor2: #99a1af;
+  --color-borderColor3: #731675;
   --color-linkColor: #de9700;
   --color-textColor: #fff;
   --color-btnColor: #420356;
-  --color-yellowBtnColor: #FFBD0B;
+  --color-yellowBtnColor: #ffbd0b;
   --color-error-bg: #fee2e2;
   --color-error-border: #f87171;
   --color-error-text: #b91c1c;
   --color-error-button: #ef4444;
   --color-error-button-hover: #dc2626;
+
+  --breakpoint-tablet: 58rem;
 }
 
 @layer components {
   .buttonStyle {
-    @apply w-full sm:w-auto min-w-[6rem] h-[2rem] sm:h-[3rem] rounded-[0.65rem] bg-btnColor font-semibold text-sm sm:text-base md:text-xl cursor-pointer hover:bg-bgColor3 text-white px-4;
+    @apply w-auto h-[2.4rem] sm:h-[3rem] rounded-[0.65rem] bg-btnColor font-semibold text-sm sm:text-base md:text-xl cursor-pointer hover:bg-bgColor3 text-white px-4;
   }
   .roundButtonStyle {
-    @apply w-[12.5rem] h-13 rounded-[2rem] bg-btnColor font-semibold text-base text-yellowBtnColor cursor-pointer hover:bg-bgColor3 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply w-[12.5rem] h-13 rounded-[2rem] bg-btnColor font-semibold text-[0.8rem] sm:text-sm text-yellowBtnColor cursor-pointer hover:bg-bgColor3 disabled:opacity-50 disabled:cursor-not-allowed;
   }
   .labelStyle {
     @apply text-textColor text-[1rem] mb-[0.5rem];
@@ -59,6 +61,24 @@ body {
     @apply w-full h-[3rem] bg-inputColor rounded-xl border border-textColor/35 font-medium text-[1rem] p-[1rem] focus:outline-none focus:border-borderColor focus:opacity-100 focus:bg-bgColor text-white;
   }
   .selectStyle {
-    @apply min-w-[10rem] h-[3rem] bg-inputColor rounded-xl border border-borderColor2/35 px-4 text-white font-medium cursor-pointer focus:outline-none focus:border-borderColor focus:opacity-100 focus:bg-bgColor;
+    @apply w-full h-[3rem] bg-inputColor rounded-xl border border-borderColor2/35 px-4 text-white font-medium cursor-pointer focus:outline-none focus:border-borderColor focus:opacity-100 focus:bg-bgColor;
   }
+}
+
+@layer utilities {
+  .border-gradient {
+    border: 3px solid transparent;
+    background:
+      linear-gradient(#2c0e48, #2c0e48) padding-box,
+      linear-gradient(to right, #f2c21b, #c16b08) border-box;
+  }
+  .bg-gradient {
+    background: linear-gradient(
+      to bottom,
+      #461446 0%,
+      #2c063f 66%,
+      #731675 100%
+    );
+  }
+
 }

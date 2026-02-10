@@ -19,7 +19,7 @@ const TaskSearchFilter = ({ onChange }) => {
   }, [search, priority]);
 
   return (
-    <div className="flex gap-4">
+    <div className="flex justify-center md:self-start gap-2">
       <CommonFormController
         controls={SEARCH_FILTER_CONTROLLER}
         control={control}

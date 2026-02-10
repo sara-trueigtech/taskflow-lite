@@ -5,7 +5,7 @@ const Checkbox = ({ field, label }) => {
         type="checkbox"
         {...field}
         checked={!!field.value}
-        className="w-4 h-4 accent-indigo-500"
+        className="w-4 h-4 accent-bgColor4"
       />
       <span className="text-sm text-white">{label}</span>
     </label>

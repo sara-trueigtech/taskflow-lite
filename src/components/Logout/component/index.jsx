@@ -27,7 +27,7 @@ const Logout = ({ open, onClose }) => {
             Are you sure you want to logout?
           </p>
 
-          <div className="flex gap-4">
+          <div className="flex justify-center flex-wrap gap-4">
             <button onClick={handleLogout} className="roundButtonStyle">
               {" "}
               Logout
